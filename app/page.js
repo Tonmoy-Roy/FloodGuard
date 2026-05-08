@@ -3,6 +3,7 @@ import EmergencyServicesSection from "./Components/Sections/HomePage/EmergencySe
 import HeroSection from "./Components/Sections/HomePage/Hero";
 import LiveMap from "./Components/Sections/HomePage/LiveMap";
 import VolunteerSection from "./Components/Sections/HomePage/VolunteerSection";
+import SuccesStories from "./Components/Sections/HomePage/SuccesStories";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <LiveMap></LiveMap>
       <EmergencyServicesSection></EmergencyServicesSection>
       <VolunteerSection></VolunteerSection>
+      <SuccesStories></SuccesStories>
     </div>
   );
 }
