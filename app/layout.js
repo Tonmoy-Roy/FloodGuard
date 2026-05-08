@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+import Navbar from "./Components/Layout/Navbar"; // Navbar কম্পোনেন্ট ইমপোর্ট করুন
+import Footer from "./Components/Layout/Footer"; // Footer কম্পোনেন্ট ইমপোর্ট করুন
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -22,7 +23,11 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Navbar /> {/* Navbar এখানে যোগ করুন */}
+        {children}
+        <Footer /> {/* Footer এখানে যোগ করুন */}
+      </body>
     </html>
   );
 }

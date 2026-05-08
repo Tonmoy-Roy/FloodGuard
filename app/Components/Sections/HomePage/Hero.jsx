@@ -1,8 +1,12 @@
 "use client";
-
 import Link from "next/link";
+import EmergencyServicesSection from "./EmergencyService";
+import LiveMap from "./LiveMap";
+import VolunteerSection from "./VolunteerSection";
+import SuccesStories from "./SuccesStories";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+
 import {
   Shield,
   Building2,
@@ -228,6 +232,10 @@ export default function HeroSection() {
           Learn more
         </Link>
       </p>
+      <LiveMap></LiveMap>
+      <EmergencyServicesSection></EmergencyServicesSection>
+      <VolunteerSection></VolunteerSection>
+      <SuccesStories></SuccesStories>
     </section>
   );
 }
