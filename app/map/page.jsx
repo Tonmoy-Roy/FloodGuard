@@ -1,6 +1,7 @@
 import MapBanner from "@/app/map/MapBanner";
 import LiveMap from "@/app/Components/Reusable/LiveMap";
 import LeftSidebar from '../../app/map/LeftSidebar'
+import SosModal from '../map/SosModal'
 
 export default function MapPage() {
   return (
@@ -13,6 +14,7 @@ export default function MapPage() {
           <LiveMap />
         </div>
       </div>
+      <SosModal></SosModal>
     </main>
   );
 }

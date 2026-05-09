@@ -199,7 +199,7 @@ function WeatherBadge({ language, className = "" }) {
   const floodRisk = true;
 
   return (
-    <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-sm text-gray-600 dark:text-gray-300 ${className}`}>
+    <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border border-red-600 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-sm text-gray-600 dark:text-gray-300 ${className}`}>
       <CloudRain className="w-4 h-4 text-amber-500" />
 
       <span>Feni</span>
@@ -451,14 +451,14 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-[#f3f4f6] dark:bg-gray-900 backdrop-blur">
       {/* Main Bar */}
 
-      <div className="flex items-center justify-between h-16 px-4 md:px-6 gap-4">
-        {/* Logo */}
+      <div className="flex items-center h-16 px-4 md:px-6 gap-4">
+        {/* Left: Logo */}
+        <div className="flex-shrink-0">
+          <Logo language={language} />
+        </div>
 
-        <Logo language={language} />
-
-        {/* Desktop Nav */}
-
-        <nav className="hidden md:flex items-center gap-1">
+        {/* Center: Desktop Nav */}
+        <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
           {NAV_LINKS.map(({ href, key, icon: Icon }) => (
             <Link
               key={href}
@@ -475,9 +475,8 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Right Side */}
-
-        <div className="flex items-center gap-2 ml-auto">
+        {/* Right: Weather Badge & Controls */}
+        <div className="flex items-center gap-2 flex-shrink-0 ml-auto">
           <WeatherBadge language={language} className="hidden md:flex" />
 
           <div className="hidden md:block w-px h-6 bg-gray-300 dark:bg-gray-700" />
@@ -493,28 +492,30 @@ export default function Navbar() {
             <option value="bn">বাংলা</option>
           </select>
 
-          <Button
-            variant="outline"
-            size="sm"
-            className="hidden md:flex items-center gap-2"
-            asChild
-          >
-            <Link href="/volunteer/register">
-              <HeartHandshake className="w-4 h-4 text-green-600" />
-              {t.volunteer}
-            </Link>
-          </Button>
+          <div className="hidden md:flex gap-0 -space-x-px">
+            <Button
+              variant="outline"
+              size="sm"
+              className="flex items-center rounded-r-none"
+              asChild
+            >
+              <Link href="/volunteer/register">
+                <HeartHandshake className="w-4 h-4 text-green-600" />
+                {t.volunteer}
+              </Link>
+            </Button>
 
-          <Button
-            size="sm"
-            className="hidden md:flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white font-semibold"
-            asChild
-          >
-            <Link href="/sos">
-              <Shield className="w-4 h-4" />
-              {t.sos}
-            </Link>
-          </Button>
+            <Button
+              size="sm"
+              className="flex items-center bg-red-500 hover:bg-red-600 text-white font-semibold rounded-l-none"
+              asChild
+            >
+              <Link href="/sos">
+                <Shield className="w-4 h-4" />
+                {t.sos}
+              </Link>
+            </Button>
+          </div>
 
           <div className="hidden md:block w-px h-6 bg-gray-300 dark:bg-gray-700" />
 
