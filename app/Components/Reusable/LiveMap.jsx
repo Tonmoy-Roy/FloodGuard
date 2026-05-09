@@ -270,7 +270,7 @@ export default function FloodMapPreview() {
   }
 
   return (
-    <section className="w-full px-4 py-16 bg-white dark:bg-gray-950">
+    <section className="w-full pt-4 bg-white dark:bg-gray-950">
       <div className="max-w-5xl mx-auto flex flex-col gap-6">
 
         {/* ── Header ── */}

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import EmergencyServicesSection from "./EmergencyService";
-import LiveMap from "./LiveMap";
+import LiveMap from "../../Reusable/LiveMap";
 import VolunteerSection from "./VolunteerSection";
 import SuccesStories from "./SuccesStories";
 import { Button } from "@/components/ui/button";
