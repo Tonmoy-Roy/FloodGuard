@@ -4,8 +4,16 @@ import React, { createContext, useContext, useState } from "react";
 
 const SheetContext = createContext(null);
 
-export function Sheet({ children }) {
-  const [open, setOpen] = useState(false);
+export function Sheet({ children, open: controlledOpen, onOpenChange }) {
+  const [internalOpen, setInternalOpen] = useState(false);
+
+  // Use controlled state if props are provided, otherwise use internal state
+  const open = controlledOpen !== undefined ? controlledOpen : internalOpen;
+  const setOpen = (val) => {
+    if (onOpenChange) onOpenChange(val);
+    if (controlledOpen === undefined) setInternalOpen(val);
+  };
+
   return <SheetContext.Provider value={{ open, setOpen }}>{children}</SheetContext.Provider>;
 }
 
@@ -38,9 +46,11 @@ export function SheetContent({ side = "right", className = "", children }) {
   if (!context || !context.open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex">
-      <div className="fixed inset-0 bg-black/40" onClick={() => context.setOpen(false)} />
-      <div className={`relative h-full overflow-y-auto bg-white dark:bg-slate-950 ${side === "left" ? "mr-auto" : "ml-auto"} ${className}`}>
+    <div className="fixed inset-0 z-[100] flex">
+      {/* Backdrop overlay */}
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={() => context.setOpen(false)} />
+      {/* Sidebar Content */}
+      <div className={`relative h-full overflow-y-auto bg-white dark:bg-gray-950 shadow-2xl transition-transform ${side === "left" ? "mr-auto border-r" : "ml-auto border-l"} border-gray-200 dark:border-gray-800 ${className}`}>
         {children}
       </div>
     </div>

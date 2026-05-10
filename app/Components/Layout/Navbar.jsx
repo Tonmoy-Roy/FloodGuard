@@ -14,13 +14,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "../Ui/dropdown-menu";
 
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "../Ui/sheet";
+import LeftSidebar from "@/app/map/LeftSidebar";
 
 import {
   AlertTriangle,
@@ -311,14 +312,15 @@ function UserMenu({ user, language }) {
 // Mobile Nav
 // ───────────────────────────────────────────────────────────────────────────────
 
-function MobileNav({ user, pathname, language }) {
+function MobileNav({ user, pathname, language, isMapPage }) {
+  const [open, setOpen] = useState(false);
   const t = TRANSLATIONS[language];
 
   const dashboardHref = DASHBOARD_ROUTE[user.role];
   const roleMeta = ROLE_META[user.role];
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" className="md:hidden text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800">
           <Menu className="w-5 h-5" />
@@ -327,96 +329,106 @@ function MobileNav({ user, pathname, language }) {
 
       <SheetContent side="left" className="w-80 p-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="p-5 border-b border-gray-100 dark:border-gray-800">
+        <div className="p-5 border-b border-gray-100 dark:border-gray-800" onClick={() => setOpen(false)}>
           <Logo language={language} />
         </div>
 
-        {/* User Quick Info */}
-        <div className="px-5 py-4 bg-gray-50/50 dark:bg-gray-800/20 border-b border-gray-100 dark:border-gray-800">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-xs font-bold text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-gray-700">
-              {user.avatarInitials}
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{user.name}</span>
-              <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full w-fit mt-1 ${roleMeta.className}`}>
-                {roleMeta.label}
-              </span>
-            </div>
+        {isMapPage ? (
+          <div className="flex-1 overflow-y-auto">
+            <LeftSidebar />
           </div>
-        </div>
-
-        {/* Navigation Content */}
-        <div className="flex-1 overflow-y-auto">
-          <div className="p-4 space-y-6">
-            {/* Main Links */}
-            <div className="space-y-2">
-              <h4 className="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                Menu
-              </h4>
-              <nav className="flex flex-col gap-1">
-                {NAV_LINKS.map(({ href, key, icon: Icon }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                      pathname === href
-                        ? "bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-bold"
-                        : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
-                    }`}
-                  >
-                    <Icon className="w-5 h-5" />
-                    {t[key]}
-                  </Link>
-                ))}
-              </nav>
+        ) : (
+          <>
+            {/* User Quick Info */}
+            <div className="px-5 py-4 bg-gray-50/50 dark:bg-gray-800/20 border-b border-gray-100 dark:border-gray-800">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-xs font-bold text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-gray-700">
+                  {user.avatarInitials}
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{user.name}</span>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full w-fit mt-1 ${roleMeta.className}`}>
+                    {roleMeta.label}
+                  </span>
+                </div>
+              </div>
             </div>
 
-            {/* Dashboard Links */}
-            <div className="space-y-2">
-              <h4 className="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                Account
-              </h4>
-              <nav className="flex flex-col gap-1">
-                <Link
-                  href={dashboardHref}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
-                >
-                  <LayoutDashboard className="w-5 h-5" />
-                  {t.dashboard}
+            {/* Navigation Content */}
+            <div className="flex-1 overflow-y-auto">
+              <div className="p-4 space-y-6">
+                {/* Main Links */}
+                <div className="space-y-2">
+                  <h4 className="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    Menu
+                  </h4>
+                  <nav className="flex flex-col gap-1">
+                    {NAV_LINKS.map(({ href, key, icon: Icon }) => (
+                      <Link
+                        key={href}
+                        href={href}
+                        onClick={() => setOpen(false)}
+                        className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${pathname === href
+                            ? "bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-bold"
+                            : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
+                          }`}
+                      >
+                        <Icon className="w-5 h-5" />
+                        {t[key]}
+                      </Link>
+                    ))}
+                  </nav>
+                </div>
+
+                {/* Dashboard Links */}
+                <div className="space-y-2">
+                  <h4 className="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+                    Account
+                  </h4>
+                  <nav className="flex flex-col gap-1">
+                    <Link
+                      href={dashboardHref}
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
+                      <LayoutDashboard className="w-5 h-5" />
+                      {t.dashboard}
+                    </Link>
+                    <Link
+                      href="/settings"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
+                    >
+                      <Settings className="w-5 h-5" />
+                      {t.settings}
+                    </Link>
+                  </nav>
+                </div>
+
+                {/* Weather / Info Section */}
+                <div className="px-3">
+                  <WeatherBadge language={language} className="w-full justify-center py-3" />
+                </div>
+              </div>
+            </div>
+
+            {/* Footer CTAs */}
+            <div className="p-5 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900 flex flex-col gap-3">
+              <Button variant="outline" className="w-full justify-center gap-2 text-green-600 border-green-200 hover:bg-green-50 dark:hover:bg-green-900/20 h-11" asChild>
+                <Link href="/volunteer/register" onClick={() => setOpen(false)}>
+                  <HeartHandshake className="w-4 h-4" />
+                  {t.becomeVolunteer}
                 </Link>
-                <Link
-                  href="/settings"
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
-                >
-                  <Settings className="w-5 h-5" />
-                  {t.settings}
+              </Button>
+              <Button className="w-full gap-2 bg-red-500 hover:bg-red-600 text-white font-bold h-11 shadow-lg shadow-red-500/20" asChild>
+                <Link href="/sos" onClick={() => setOpen(false)}>
+                  <Shield className="w-4 h-4" />
+                  {t.sos}
                 </Link>
-              </nav>
+              </Button>
             </div>
-
-            {/* Weather / Info Section */}
-            <div className="px-3">
-              <WeatherBadge language={language} className="w-full justify-center py-3" />
-            </div>
-          </div>
-        </div>
-
-        {/* Footer CTAs */}
-        <div className="p-5 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900 flex flex-col gap-3">
-          <Button variant="outline" className="w-full justify-center gap-2 text-green-600 border-green-200 hover:bg-green-50 dark:hover:bg-green-900/20 h-11" asChild>
-            <Link href="/volunteer/register">
-              <HeartHandshake className="w-4 h-4" />
-              {t.becomeVolunteer}
-            </Link>
-          </Button>
-          <Button className="w-full gap-2 bg-red-500 hover:bg-red-600 text-white font-bold h-11 shadow-lg shadow-red-500/20" asChild>
-            <Link href="/sos">
-              <Shield className="w-4 h-4" />
-              {t.sos}
-            </Link>
-          </Button>
-        </div>
+          </>
+        )}
       </SheetContent>
     </Sheet>
   );
@@ -457,11 +469,10 @@ export default function Navbar() {
             <Link
               key={href}
               href={href}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                pathname === href
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${pathname === href
                   ? "text-blue-600 dark:text-blue-400"
                   : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-              }`}
+                }`}
             >
               <Icon className="w-4 h-4" />
               {t[key]}
@@ -525,6 +536,7 @@ export default function Navbar() {
             user={user}
             pathname={pathname}
             language={language}
+            isMapPage={pathname?.startsWith("/map")}
           />
         </div>
       </div>
@@ -569,7 +581,6 @@ export default function Navbar() {
           {activeRescues} {t.activeRescues}
         </div>
       </div>
-      
     </header>
   );
 }

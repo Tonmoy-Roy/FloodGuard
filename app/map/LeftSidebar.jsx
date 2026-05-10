@@ -140,7 +140,7 @@ export default function MapSidebar({ onFilterChange }) {
   );
 
   return (
-    <aside className="w-73 shrink-0 h-full flex flex-col bg-gray-50 dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 overflow-y-auto ml-2">
+    <aside className="w-full max-w-[18.25rem] shrink-0 h-full flex flex-col bg-gray-50 dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 overflow-y-auto ml-2">
 
       <div className="flex flex-col gap-5 p-4">
 

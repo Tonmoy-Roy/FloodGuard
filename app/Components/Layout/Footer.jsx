@@ -26,15 +26,6 @@ const QUICK_LINKS = [
   { label: "Weather Alerts", href: "/alerts" },
 ];
 
-const VOLUNTEER_LINKS = [
-  { label: "Become a Volunteer", href: "/volunteer/register" },
-  { label: "Volunteer Dashboard", href: "/dashboard/volunteer" },
-  { label: "NGO / Admin Login", href: "/dashboard/admin" },
-  { label: "How It Works", href: "/how-it-works" },
-  { label: "About FloodGuard BD", href: "/about" },
-  { label: "Contact Us", href: "/contact" },
-];
-
 // ─── Social Links ─────────────────────────────────────────────────────────────
 
 const SOCIAL_LINKS = [
@@ -208,33 +199,18 @@ export default function Footer() {
         </div>
 
         {/* Col 4 — Volunteer & Info */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col">
           <h3 className="text-xs font-semibold text-white uppercase tracking-wider">
-            Volunteer & Info
+            Official Resources
           </h3>
-          <ul className="flex flex-col gap-2">
-            {VOLUNTEER_LINKS.map(({ label, href }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="text-sm text-gray-400 hover:text-white transition-colors"
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-          </ul>
 
           {/* Bangladesh Gov link */}
-          <div className="mt-2 pt-4 border-t border-gray-800 flex flex-col gap-2">
-            <p className="text-[10px] text-gray-600 uppercase tracking-wider font-semibold">
-              Official Resources
-            </p>
+          <div className="mt-2 pt-4 flex flex-col gap-2">
             <a
               href="https://ddm.gov.bd"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors"
+              className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors"
             >
               <ExternalLink className="w-3 h-3" />
               DDM — Dept. of Disaster Management
@@ -243,7 +219,7 @@ export default function Footer() {
               href="https://bmd.gov.bd"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-300 transition-colors"
+              className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors"
             >
               <ExternalLink className="w-3 h-3" />
               BMD — Bangladesh Meteorological Dept.
