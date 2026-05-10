@@ -140,9 +140,9 @@ export default function MapSidebar({ onFilterChange }) {
   );
 
   return (
-    <aside className="w-full max-w-[18.25rem] shrink-0 h-full flex flex-col bg-gray-50 dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 overflow-y-auto ml-2">
+    <aside className="w-full max-w-full md:max-w-[18.25rem] md:shrink-0 h-full flex flex-col bg-gray-50 dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 overflow-y-auto md:ml-2 ml-0">
 
-      <div className="flex flex-col gap-5 p-4">
+      <div className="flex flex-col gap-5 p-4 w-[95vw] md:w-auto ml-2 md:ml-0">
 
         {/* ── Search Box ── */}
         <div className="relative">

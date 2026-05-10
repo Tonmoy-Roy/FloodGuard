@@ -354,7 +354,7 @@ export default function FloodMapPreview() {
           {/* Feni alert chip */}
           <div className="absolute top-3 right-12 z-[400] flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 shadow-sm">
             <AlertTriangle className="w-3 h-3 text-red-500" />
-            <span className="text-[11px] font-semibold text-red-600 dark:text-red-400">
+            <span className="text-[11px] font-semibold text-red-600 dark:text-red-400 hidden md:block">
               Feni — High Flood Alert
             </span>
           </div>
