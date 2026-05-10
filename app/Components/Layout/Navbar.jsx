@@ -60,9 +60,7 @@ const TRANSLATIONS = {
   en: {
     home: "Home",
     liveMap: "Live Map",
-    shelters: "Shelters",
-    missing: "Missing",
-    alerts: "Alerts",
+    about: "About",
 
     volunteer: "Volunteer",
     becomeVolunteer: "Become a Volunteer",
@@ -85,9 +83,7 @@ const TRANSLATIONS = {
   bn: {
     home: "হোম",
     liveMap: "লাইভ ম্যাপ",
-    shelters: "আশ্রয়কেন্দ্র",
-    missing: "নিখোঁজ",
-    alerts: "সতর্কতা",
+    about: "আমাদের সম্পর্কে",
 
     volunteer: "স্বেচ্ছাসেবক",
     becomeVolunteer: "স্বেচ্ছাসেবক হোন",
@@ -115,9 +111,7 @@ const TRANSLATIONS = {
 const NAV_LINKS = [
   { href: "/", key: "home", icon: Home },
   { href: "/map", key: "liveMap", icon: Map },
-  { href: "/shelters", key: "shelters", icon: Building2 },
-  { href: "/missing", key: "missing", icon: UserSearch },
-  { href: "/alerts", key: "alerts", icon: AlertTriangle },
+  { href: "/about", key: "about", icon: AlertTriangle },
 ];
 
 // ───────────────────────────────────────────────────────────────────────────────
@@ -575,6 +569,7 @@ export default function Navbar() {
           {activeRescues} {t.activeRescues}
         </div>
       </div>
+      
     </header>
   );
 }
