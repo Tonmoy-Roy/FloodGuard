@@ -46,7 +46,7 @@ export function SheetContent({ side = "right", className = "", children }) {
   if (!context || !context.open) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex">
+    <div className="fixed inset-0 z-[99999] flex">
       {/* Backdrop overlay */}
       <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={() => context.setOpen(false)} />
       {/* Sidebar Content */}
@@ -55,4 +55,8 @@ export function SheetContent({ side = "right", className = "", children }) {
       </div>
     </div>
   );
+}
+
+export function SheetTitle({ children, className = "" }) {
+  return <h2 className={`text-lg font-semibold ${className}`}>{children}</h2>;
 }

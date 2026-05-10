@@ -284,27 +284,14 @@ export default function ContactSection() {
               ))}
             </div>
 
-            {/* Open source note */}
-            <div className="mt-2 p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 flex items-start gap-3">
-              <GitHub className="w-5 h-5 text-gray-500 flex-shrink-0 mt-0.5" />
-              <div className="flex flex-col gap-1">
-                <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                  Open Source
-                </p>
-                <p className="text-xs text-gray-400 dark:text-gray-500 leading-relaxed">
-                  FloodGuard BD is open source. PRs, issues, and contributions
-                  are welcome on GitHub.
-                </p>
-              </div>
-            </div>
           </div>
 
           {/* Right — feedback form */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 ">
             <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
               Send a message
             </p>
-            <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
+            <div className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 md:h-[46vh]">
               <FeedbackForm />
             </div>
           </div>

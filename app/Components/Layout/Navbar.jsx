@@ -4,8 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { Button } from "../Ui/button";
-import { Badge } from "../Ui/badge";
+import { Button } from "../ui/button";
+import { Badge } from "../ui/badge";
 
 import {
   DropdownMenu,
@@ -14,20 +14,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../Ui/dropdown-menu";
+} from "../ui/dropdown-menu";
 
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
-} from "../Ui/sheet";
+} from "../ui/sheet";
+
 import LeftSidebar from "@/app/map/LeftSidebar";
 
 import {
-  AlertTriangle,
+  Info,
   Bell,
-  Building2,
-  ChevronDown,
   CloudRain,
   Home,
   LayoutDashboard,
@@ -36,20 +35,20 @@ import {
   Menu,
   Settings,
   Shield,
-  UserSearch,
   Users,
   Waves,
   HeartHandshake,
+  ChevronDown,
 } from "lucide-react";
+import HeroSection from "../Sections/HomePage/Hero";
 
 // ───────────────────────────────────────────────────────────────────────────────
 // Mock User
 // ───────────────────────────────────────────────────────────────────────────────
 
 const MOCK_USER = {
-  name: "Admin User",
   email: "admin@floodguard.bd",
-  role: "admin", // user | volunteer | admin | rescue_team
+  role: "admin",
   avatarInitials: "AD",
 };
 
@@ -61,12 +60,7 @@ const TRANSLATIONS = {
   en: {
     home: "Home",
     liveMap: "Live Map",
-    about: "About",
-
-    volunteer: "Volunteer",
-    becomeVolunteer: "Become a Volunteer",
-
-    sos: "SOS",
+    about: "About Us",
 
     dashboard: "Dashboard",
     settings: "Settings",
@@ -74,9 +68,6 @@ const TRANSLATIONS = {
     signOut: "Sign Out",
 
     floodRisk: "Flood Risk",
-    activeRescues: "active rescues",
-
-    role: "Role",
 
     emergencyPlatform: "Emergency Platform",
   },
@@ -86,20 +77,12 @@ const TRANSLATIONS = {
     liveMap: "লাইভ ম্যাপ",
     about: "আমাদের সম্পর্কে",
 
-    volunteer: "স্বেচ্ছাসেবক",
-    becomeVolunteer: "স্বেচ্ছাসেবক হোন",
-
-    sos: "এসওএস",
-
     dashboard: "ড্যাশবোর্ড",
     settings: "সেটিংস",
     manageUsers: "ইউজার ম্যানেজ",
     signOut: "লগ আউট",
 
     floodRisk: "বন্যা ঝুঁকি",
-    activeRescues: "সক্রিয় উদ্ধার অভিযান",
-
-    role: "ভূমিকা",
 
     emergencyPlatform: "জরুরি প্ল্যাটফর্ম",
   },
@@ -112,7 +95,7 @@ const TRANSLATIONS = {
 const NAV_LINKS = [
   { href: "/", key: "home", icon: Home },
   { href: "/map", key: "liveMap", icon: Map },
-  { href: "/about", key: "about", icon: AlertTriangle },
+  { href: "/about", key: "about", icon: Info },
 ];
 
 // ───────────────────────────────────────────────────────────────────────────────
@@ -194,7 +177,9 @@ function WeatherBadge({ language, className = "" }) {
   const floodRisk = true;
 
   return (
-    <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border border-red-600 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-sm text-gray-600 dark:text-gray-300 ${className}`}>
+    <div
+      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border border-red-600 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-sm text-gray-600 dark:text-gray-300 ${className}`}
+    >
       <CloudRain className="w-4 h-4 text-amber-500" />
 
       <span>Feni</span>
@@ -249,18 +234,18 @@ function UserMenu({ user, language }) {
               {user.name}
             </span>
 
-            <span
+            {/* <span
               className={`text-[10px] font-semibold px-1.5 rounded-full ${roleMeta.className}`}
             >
               {roleMeta.label}
-            </span>
+            </span> */}
           </div>
 
           <ChevronDown className="w-3.5 h-3.5 text-gray-400 hidden md:block" />
         </button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-52">
+      <DropdownMenuContent align="end" className="w-52 text-gray-400">
         <DropdownMenuLabel className="flex flex-col gap-0.5">
           <span className="font-medium text-sm">{user.name}</span>
 
@@ -296,11 +281,8 @@ function UserMenu({ user, language }) {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem
-          className="text-red-600 dark:text-red-400 focus:text-red-600"
-          onClick={() => console.log("sign out")}
-        >
-          <LogOut className="w-4 h-4 mr-2" />
+        <DropdownMenuItem className="flex gap-2 items-center text-red-600 dark:text-red-400 focus:text-red-600">
+          <LogOut className="w-4 h-4" />
           {t.signOut}
         </DropdownMenuItem>
       </DropdownMenuContent>
@@ -314,22 +296,35 @@ function UserMenu({ user, language }) {
 
 function MobileNav({ user, pathname, language, isMapPage }) {
   const [open, setOpen] = useState(false);
+
   const t = TRANSLATIONS[language];
 
   const dashboardHref = DASHBOARD_ROUTE[user.role];
+
   const roleMeta = ROLE_META[user.role];
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="md:hidden text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
+        >
           <Menu className="w-5 h-5" />
         </Button>
       </SheetTrigger>
 
-      <SheetContent side="left" className="w-80 p-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden">
+      <SheetContent
+        side="left"
+        className="z-[9999] w-80 p-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden"
+      >
         {/* Header */}
-        <div className="p-5 border-b border-gray-100 dark:border-gray-800" onClick={() => setOpen(false)}>
+
+        <div
+          className="p-5 border-b border-gray-100 dark:border-gray-800"
+          onClick={() => setOpen(false)}
+        >
           <Logo language={language} />
         </div>
 
@@ -339,29 +334,31 @@ function MobileNav({ user, pathname, language, isMapPage }) {
           </div>
         ) : (
           <>
-            {/* User Quick Info */}
+            {/* User Info */}
+
             <div className="px-5 py-4 bg-gray-50/50 dark:bg-gray-800/20 border-b border-gray-100 dark:border-gray-800">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-xs font-bold text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-gray-700">
                   {user.avatarInitials}
                 </div>
+
                 <div className="flex flex-col">
-                  <span className="text-sm font-bold text-gray-900 dark:text-gray-100">{user.name}</span>
-                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full w-fit mt-1 ${roleMeta.className}`}>
-                    {roleMeta.label}
+                  <span className="text-sm font-bold text-gray-900 dark:text-gray-100">
+                    {user.name}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Navigation Content */}
+            {/* Nav */}
+
             <div className="flex-1 overflow-y-auto">
               <div className="p-4 space-y-6">
-                {/* Main Links */}
                 <div className="space-y-2">
                   <h4 className="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                     Menu
                   </h4>
+
                   <nav className="flex flex-col gap-1">
                     {NAV_LINKS.map(({ href, key, icon: Icon }) => (
                       <Link
@@ -369,22 +366,25 @@ function MobileNav({ user, pathname, language, isMapPage }) {
                         href={href}
                         onClick={() => setOpen(false)}
                         className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${pathname === href
-                            ? "bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-bold"
-                            : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
+                          ? "bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-bold"
+                          : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
                           }`}
                       >
                         <Icon className="w-5 h-5" />
+
                         {t[key]}
                       </Link>
                     ))}
                   </nav>
                 </div>
 
-                {/* Dashboard Links */}
+                {/* Dashboard */}
+
                 <div className="space-y-2">
                   <h4 className="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
                     Account
                   </h4>
+
                   <nav className="flex flex-col gap-1">
                     <Link
                       href={dashboardHref}
@@ -392,37 +392,56 @@ function MobileNav({ user, pathname, language, isMapPage }) {
                       className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
                     >
                       <LayoutDashboard className="w-5 h-5" />
+
                       {t.dashboard}
                     </Link>
+
                     <Link
                       href="/settings"
                       onClick={() => setOpen(false)}
                       className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400"
                     >
                       <Settings className="w-5 h-5" />
+
                       {t.settings}
                     </Link>
                   </nav>
                 </div>
 
-                {/* Weather / Info Section */}
                 <div className="px-3">
-                  <WeatherBadge language={language} className="w-full justify-center py-3" />
+                  <WeatherBadge
+                    language={language}
+                    className="w-full justify-center py-3"
+                  />
                 </div>
               </div>
             </div>
 
-            {/* Footer CTAs */}
+            {/* Footer */}
+
             <div className="p-5 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900 flex flex-col gap-3">
-              <Button variant="outline" className="w-full justify-center gap-2 text-green-600 border-green-200 hover:bg-green-50 dark:hover:bg-green-900/20 h-11" asChild>
-                <Link href="/volunteer/register" onClick={() => setOpen(false)}>
+              <Button
+                variant="outline"
+                className="w-full justify-center gap-2 text-green-600 border-green-200 hover:bg-green-50 dark:hover:bg-green-900/20 h-11"
+                asChild
+              >
+                <Link
+                  href="/volunteer/register"
+                  onClick={() => setOpen(false)}
+                >
                   <HeartHandshake className="w-4 h-4" />
+
                   {t.becomeVolunteer}
                 </Link>
               </Button>
-              <Button className="w-full gap-2 bg-red-500 hover:bg-red-600 text-white font-bold h-11 shadow-lg shadow-red-500/20" asChild>
+
+              <Button
+                className="w-full gap-2 bg-red-500 hover:bg-red-600 text-white font-bold h-11 shadow-lg shadow-red-500/20"
+                asChild
+              >
                 <Link href="/sos" onClick={() => setOpen(false)}>
                   <Shield className="w-4 h-4" />
+
                   {t.sos}
                 </Link>
               </Button>
@@ -458,46 +477,52 @@ export default function Navbar() {
       {/* Main Bar */}
 
       <div className="flex items-center h-16 px-4 md:px-6 gap-4">
-        {/* Left: Logo */}
+        {/* Logo */}
+
         <div className="flex-shrink-0">
           <Logo language={language} />
         </div>
 
-        {/* Center: Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1 flex-1 justify-center">
+        {/* Desktop Nav */}
+
+        <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
           {NAV_LINKS.map(({ href, key, icon: Icon }) => (
             <Link
               key={href}
               href={href}
               className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${pathname === href
-                  ? "text-blue-600 dark:text-blue-400"
-                  : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                ? "text-blue-600 dark:text-blue-400"
+                : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                 }`}
             >
               <Icon className="w-4 h-4" />
+
               {t[key]}
             </Link>
           ))}
         </nav>
 
-        {/* Right: Weather Badge & Controls */}
+        {/* Right */}
+
         <div className="flex items-center gap-2 flex-shrink-0 ml-auto">
           <WeatherBadge language={language} className="hidden md:flex" />
 
-          <div className="hidden md:block w-px h-6 bg-gray-300 dark:bg-gray-700" />
 
-          {/* Language Switcher */}
+          {/* Language */}
 
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value)}
-            className="hidden md:block h-9 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 text-sm outline-none text-gray-300"
+            className="hidden md:block h-9 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-2 text-sm outline-none text-gray-700 dark:text-gray-300"
           >
             <option value="en">EN</option>
+
             <option value="bn">বাংলা</option>
           </select>
 
-          <div className="hidden md:flex gap-0 -space-x-px">
+          {/* Buttons */}
+
+          <div className="hidden md:flex md:w-[1vw] md:mr-3">
             <Button
               variant="outline"
               size="sm"
@@ -505,19 +530,9 @@ export default function Navbar() {
               asChild
             >
               <Link href="/volunteer/register">
-                <HeartHandshake className="w-4 h-4 text-green-600" />
-                {t.volunteer}
-              </Link>
-            </Button>
+                <HeartHandshake className="w-6 h-6 text-green-600" />
 
-            <Button
-              size="sm"
-              className="flex items-center bg-red-500 hover:bg-red-600 text-white font-semibold rounded-l-none"
-              asChild
-            >
-              <Link href="/sos">
-                <Shield className="w-4 h-4" />
-                {t.sos}
+                {t.volunteer}
               </Link>
             </Button>
           </div>
@@ -525,12 +540,10 @@ export default function Navbar() {
           <div className="hidden md:block w-px h-6 bg-gray-300 dark:bg-gray-700" />
 
           <div className="hidden md:block">
-            <NotificationBell count={activeRescues} />
-          </div>
-
-          <div className="hidden md:block">
             <UserMenu user={user} language={language} />
           </div>
+
+          {/* Mobile */}
 
           <MobileNav
             user={user}
@@ -538,47 +551,6 @@ export default function Navbar() {
             language={language}
             isMapPage={pathname?.startsWith("/map")}
           />
-        </div>
-      </div>
-
-      {/* Sub Bar */}
-
-      <div className="hidden md:flex items-center gap-4 px-6 h-8 bg-gray-100 dark:bg-gray-800/50 border-t border-gray-200 dark:border-gray-800">
-        <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-          <Shield className="w-3.5 h-3.5" />
-
-          {t.role}:
-
-          <Badge
-            variant="secondary"
-            className={`text-[10px] px-2 py-0 ${roleMeta.className}`}
-          >
-            {roleMeta.label}
-          </Badge>
-        </div>
-
-        <span className="text-gray-300 dark:text-gray-700">·</span>
-
-        <Link
-          href={dashboardHref}
-          className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-        >
-          <LayoutDashboard className="w-3.5 h-3.5" />
-          {t.dashboard}
-        </Link>
-
-        <Link
-          href="/settings"
-          className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
-        >
-          <Settings className="w-3.5 h-3.5" />
-          {t.settings}
-        </Link>
-
-        <div className="ml-auto flex items-center gap-1.5 text-xs text-green-600 dark:text-green-400 font-medium">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-
-          {activeRescues} {t.activeRescues}
         </div>
       </div>
     </header>
