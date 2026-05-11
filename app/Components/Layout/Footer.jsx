@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { Phone, Mail, MapPin, Waves, ExternalLink } from "lucide-react";
 
-// ─── Emergency Contacts ───────────────────────────────────────────────────────
-
 const EMERGENCY_CONTACTS = [
   { label: "Flood Hotline", number: "1090", type: "hotline" },
   { label: "Fire Service & Civil Defence", number: "102", type: "emergency" },
@@ -12,8 +10,6 @@ const EMERGENCY_CONTACTS = [
   { label: "Ambulance", number: "199", type: "emergency" },
   { label: "BDRCS Disaster Helpline", number: "01730-336699", type: "ngo" },
 ];
-
-// ─── Quick Links ──────────────────────────────────────────────────────────────
 
 const QUICK_LINKS = [
   { label: "Home", href: "/" },
@@ -25,8 +21,6 @@ const QUICK_LINKS = [
   { label: "Rescue Stories", href: "/stories" },
   { label: "Weather Alerts", href: "/alerts" },
 ];
-
-// ─── Social Links ─────────────────────────────────────────────────────────────
 
 const SOCIAL_LINKS = [
   {
@@ -68,15 +62,11 @@ const SOCIAL_LINKS = [
   },
 ];
 
-// ─── Contact type badge color ─────────────────────────────────────────────────
-
 const CONTACT_BADGE = {
   hotline: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300",
   emergency: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300",
   ngo: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
 };
-
-// ─── Footer ───────────────────────────────────────────────────────────────────
 
 export default function Footer() {
   return (

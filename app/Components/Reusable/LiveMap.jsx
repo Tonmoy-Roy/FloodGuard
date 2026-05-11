@@ -15,8 +15,6 @@ import {
 
 import "leaflet/dist/leaflet.css";
 
-// ─── Mock Data — Feni District focused ───────────────────────────────────────
-
 const MOCK_SOS_MARKERS = [
   { id: "s1", lat: 23.0021, lng: 91.3960, type: "Rescue Needed", peopleCount: 8, status: "pending", area: "Feni Sadar" },
   { id: "s2", lat: 22.9750, lng: 91.4200, type: "Medical Emergency", peopleCount: 3, status: "pending", area: "Daganbhuiyan" },
@@ -33,7 +31,6 @@ const MOCK_SHELTERS = [
   { id: "sh4", lat: 22.9600, lng: 91.3900, name: "Sonagazi Relief Center", available: 55, capacity: 200, food: true },
 ];
 
-// Feni District flood zones — based on real flood-prone upazilas
 const MOCK_FLOOD_ZONES = [
   {
     id: "fz1",
@@ -82,8 +79,6 @@ const MOCK_FLOOD_ZONES = [
   },
 ];
 
-// ─── Legend & Stats ───────────────────────────────────────────────────────────
-
 const LEGEND_ITEMS = [
   { color: "bg-red-500", label: "Critical SOS" },
   { color: "bg-orange-400", label: "Active Rescue" },
@@ -104,8 +99,6 @@ const FLOOD_ZONE_STYLES = {
   medium: { color: "#f97316", fillOpacity: 0.28, weight: 1.5 },
   low: { color: "#eab308", fillOpacity: 0.18, weight: 1 },
 };
-
-// ─── SVG Marker Helpers ───────────────────────────────────────────────────────
 
 function sosSvgIcon(status) {
   const bg = status === "active" ? "#f97316" : "#ef4444";
@@ -131,8 +124,6 @@ function shelterSvgIcon() {
     </div>
   `;
 }
-
-// ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function FloodMapPreview() {
   const mapRef = useRef(null);
@@ -265,12 +256,11 @@ export default function FloodMapPreview() {
   }, []);
 
   function handleRefresh() {
-    // TODO: re-fetch Firestore and re-render markers
     setLastUpdated(new Date());
   }
 
   return (
-    <section className="w-full pt-4 bg-white dark:bg-gray-950 ml-2 text-center md:text-left">
+    <section className="w-full pt-4 bg-white dark:bg-gray-950 ml-2 text-center md:text-left mb-10">
       <div className="max-w-5xl mx-auto flex flex-col gap-6">
 
         {/* ── Header ── */}

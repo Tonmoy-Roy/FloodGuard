@@ -3,28 +3,13 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
-  ArrowRight,
   MapPin,
-  ShieldCheck,
   Bell,
   Award,
-  Users,
-  Heart,
   CheckCircle2,
   TrendingUp,
 } from "lucide-react";
 import CTAButton from "../../Reusable/CTAButton";
-
-// ─── Impact Stats ─────────────────────────────────────────────────────────────
-
-const IMPACT_STATS = [
-  { value: "1,240+", label: "People Rescued", icon: Heart, color: "text-red-500" },
-  { value: "312", label: "Active Volunteers", icon: Users, color: "text-blue-500" },
-  { value: "38", label: "Missions Completed", icon: ShieldCheck, color: "text-green-500" },
-  { value: "6", label: "Districts Covered", icon: MapPin, color: "text-orange-500" },
-];
-
-// ─── Volunteer Benefits ───────────────────────────────────────────────────────
 
 const BENEFITS = [
   {
@@ -57,16 +42,12 @@ const BENEFITS = [
   },
 ];
 
-// ─── Steps ────────────────────────────────────────────────────────────────────
-
 const STEPS = [
   { step: "01", label: "Register your skills, location & availability" },
   { step: "02", label: "Get verified by local admin or NGO" },
   { step: "03", label: "Receive nearby SOS alerts on your phone" },
   { step: "04", label: "Accept missions, rescue, and mark complete" },
 ];
-
-// ─── Benefit Card ─────────────────────────────────────────────────────────────
 
 function BenefitCard({ benefit }) {
   const Icon = benefit.icon;
@@ -87,28 +68,11 @@ function BenefitCard({ benefit }) {
   );
 }
 
-// ─── Main Section ─────────────────────────────────────────────────────────────
-
 export default function VolunteerSection() {
   return (
-    <section className="w-full px-4 py-20 bg-white dark:bg-gray-950">
+    <section className="w-full px-4 py-16 bg-white dark:bg-gray-950">
       <div className="max-w-5xl mx-auto flex flex-col gap-14">
 
-        {/* ── Impact Stats ── */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {IMPACT_STATS.map(({ value, label, icon: Icon, color }) => (
-            <div
-              key={label}
-              className="flex flex-col items-center gap-2 py-6 px-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-center"
-            >
-              <Icon className={`w-5 h-5 ${color}`} />
-              <span className="text-2xl font-bold text-gray-900 dark:text-gray-100 leading-none">
-                {value}
-              </span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">{label}</span>
-            </div>
-          ))}
-        </div>
 
         {/* ── Main Content: Left + Right ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">

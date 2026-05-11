@@ -13,8 +13,6 @@ import {
   X,
 } from "lucide-react";
 
-// ─── Mock Nearby Shelters — replace with Firestore ────────────────────────────
-
 const NEARBY_SHELTERS = [
   {
     id: "sh1",
@@ -48,15 +46,11 @@ const NEARBY_SHELTERS = [
   },
 ];
 
-// ─── Filter config ────────────────────────────────────────────────────────────
-
 const FILTERS = [
   { id: "sos",       label: "SOS",       icon: Shield,    activeClass: "bg-red-500 text-white border-red-500",    inactiveClass: "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-red-300 hover:text-red-500" },
   { id: "shelter",   label: "Shelter",   icon: Building2, activeClass: "bg-blue-500 text-white border-blue-500",   inactiveClass: "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-300 hover:text-blue-500" },
   { id: "volunteer", label: "Volunteer", icon: Users,     activeClass: "bg-green-500 text-white border-green-500", inactiveClass: "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-green-300 hover:text-green-500" },
 ];
-
-// ─── Shelter Card ─────────────────────────────────────────────────────────────
 
 function ShelterCard({ shelter }) {
   const occupancyPct = Math.round(
@@ -117,8 +111,6 @@ function ShelterCard({ shelter }) {
     </div>
   );
 }
-
-// ─── Left Sidebar ─────────────────────────────────────────────────────────────
 
 export default function MapSidebar({ onFilterChange }) {
   const [search, setSearch]           = useState("");

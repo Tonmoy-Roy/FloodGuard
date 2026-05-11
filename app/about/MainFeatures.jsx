@@ -186,7 +186,7 @@ export default function MainFeaturesSection() {
         </div>
 
         {/* Bottom note */}
-        <p className="text-center text-xs text-gray-400 dark:text-gray-600 mb-10">
+        <p className="text-center text-xs text-gray-400 dark:text-gray-600">
           All features work together in real time — powered by Firebase Firestore,
           Next.js 15, and Leaflet.js.
         </p>

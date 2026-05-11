@@ -3,9 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
 
 import {
   DropdownMenu,
@@ -40,21 +38,12 @@ import {
   HeartHandshake,
   ChevronDown,
 } from "lucide-react";
-import HeroSection from "../Sections/HomePage/Hero";
-
-// ───────────────────────────────────────────────────────────────────────────────
-// Mock User
-// ───────────────────────────────────────────────────────────────────────────────
 
 const MOCK_USER = {
   email: "admin@floodguard.bd",
   role: "admin",
   avatarInitials: "AD",
 };
-
-// ───────────────────────────────────────────────────────────────────────────────
-// Translations
-// ───────────────────────────────────────────────────────────────────────────────
 
 const TRANSLATIONS = {
   en: {
@@ -88,19 +77,11 @@ const TRANSLATIONS = {
   },
 };
 
-// ───────────────────────────────────────────────────────────────────────────────
-// Nav Links
-// ───────────────────────────────────────────────────────────────────────────────
-
 const NAV_LINKS = [
   { href: "/", key: "home", icon: Home },
   { href: "/map", key: "liveMap", icon: Map },
   { href: "/about", key: "about", icon: Info },
 ];
-
-// ───────────────────────────────────────────────────────────────────────────────
-// Dashboard Routes
-// ───────────────────────────────────────────────────────────────────────────────
 
 const DASHBOARD_ROUTE = {
   user: "/dashboard/user",
@@ -109,9 +90,6 @@ const DASHBOARD_ROUTE = {
   rescue_team: "/dashboard/rescue",
 };
 
-// ───────────────────────────────────────────────────────────────────────────────
-// Role Meta
-// ───────────────────────────────────────────────────────────────────────────────
 
 const ROLE_META = {
   user: {
@@ -139,10 +117,6 @@ const ROLE_META = {
   },
 };
 
-// ───────────────────────────────────────────────────────────────────────────────
-// Logo
-// ───────────────────────────────────────────────────────────────────────────────
-
 function Logo({ language }) {
   const t = TRANSLATIONS[language];
 
@@ -167,10 +141,6 @@ function Logo({ language }) {
   );
 }
 
-// ───────────────────────────────────────────────────────────────────────────────
-// Weather Badge
-// ───────────────────────────────────────────────────────────────────────────────
-
 function WeatherBadge({ language, className = "" }) {
   const t = TRANSLATIONS[language];
 
@@ -193,10 +163,6 @@ function WeatherBadge({ language, className = "" }) {
   );
 }
 
-// ───────────────────────────────────────────────────────────────────────────────
-// Notification Bell
-// ───────────────────────────────────────────────────────────────────────────────
-
 function NotificationBell({ count = 0 }) {
   return (
     <Button variant="ghost" size="icon" className="relative">
@@ -210,10 +176,6 @@ function NotificationBell({ count = 0 }) {
     </Button>
   );
 }
-
-// ───────────────────────────────────────────────────────────────────────────────
-// User Menu
-// ───────────────────────────────────────────────────────────────────────────────
 
 function UserMenu({ user, language }) {
   const t = TRANSLATIONS[language];
@@ -233,12 +195,6 @@ function UserMenu({ user, language }) {
             <span className="text-xs font-medium text-gray-900 dark:text-gray-100">
               {user.name}
             </span>
-
-            {/* <span
-              className={`text-[10px] font-semibold px-1.5 rounded-full ${roleMeta.className}`}
-            >
-              {roleMeta.label}
-            </span> */}
           </div>
 
           <ChevronDown className="w-3.5 h-3.5 text-gray-400 hidden md:block" />
@@ -289,10 +245,6 @@ function UserMenu({ user, language }) {
     </DropdownMenu>
   );
 }
-
-// ───────────────────────────────────────────────────────────────────────────────
-// Mobile Nav
-// ───────────────────────────────────────────────────────────────────────────────
 
 function MobileNav({ user, pathname, language, isMapPage }) {
   const [open, setOpen] = useState(false);
@@ -452,10 +404,6 @@ function MobileNav({ user, pathname, language, isMapPage }) {
     </Sheet>
   );
 }
-
-// ───────────────────────────────────────────────────────────────────────────────
-// Navbar
-// ───────────────────────────────────────────────────────────────────────────────
 
 export default function Navbar() {
   const pathname = usePathname();

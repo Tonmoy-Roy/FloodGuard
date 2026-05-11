@@ -4,8 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { AlertTriangle, CloudRain, X, ChevronRight } from "lucide-react";
 
-// ─── Alert Data — replace with Firestore / Weather API ───────────────────────
-
 const ALERTS = [
   {
     id: "a1",

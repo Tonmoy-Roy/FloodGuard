@@ -3,8 +3,12 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "../../Ui/button";
-
-// ─── Services Data ────────────────────────────────────────────────────────────
+import {
+  MapPin,
+  ShieldCheck,
+  Users,
+  Heart,
+} from "lucide-react";
 
 const SERVICES = [
   {
@@ -73,7 +77,12 @@ const SERVICES = [
   },
 ];
 
-// ─── Service Card ─────────────────────────────────────────────────────────────
+const IMPACT_STATS = [
+  { value: "1,240+", label: "People Rescued", icon: Heart, color: "text-red-500" },
+  { value: "312", label: "Active Volunteers", icon: Users, color: "text-blue-500" },
+  { value: "38", label: "Missions Completed", icon: ShieldCheck, color: "text-green-500" },
+  { value: "6", label: "Districts Covered", icon: MapPin, color: "text-orange-500" },
+];
 
 function ServiceCard({ service }) {
   return (
@@ -111,11 +120,11 @@ function ServiceCard({ service }) {
 
       {/* CTA link */}
       <Button
-        className={`gap-2 ${service.btnColor} ${service.btnHColor} text-white font-semibold rounded-lg p-2`}
+        className={`w-full gap-2 ${service.btnColor} ${service.btnHColor} text-white font-semibold rounded-lg p-2`}
       >
         <Link
           href={service.href}
-          className={`flex items-center gap-1.5 text-sm font-semibold text-white ${service.statColor}`}
+          className={`flex items-center justify-center gap-1.5 text-sm font-semibold text-white ${service.statColor}`}
         >
           Request Now
 
@@ -125,8 +134,6 @@ function ServiceCard({ service }) {
     </div>
   );
 }
-
-// ─── Emergency Services Section ───────────────────────────────────────────────
 
 export default function EmergencyServicesSection() {
   return (
@@ -161,16 +168,21 @@ export default function EmergencyServicesSection() {
           ))}
         </div>
 
-        {/* Bottom note */}
-        <p className="text-center text-xs text-gray-400 dark:text-gray-600">
-          All requests are monitored by local authorities and NGOs in real time.{" "}
-          <Link
-            href="/how-it-works"
-            className="underline underline-offset-2 hover:text-gray-600 dark:hover:text-gray-400 transition-colors"
-          >
-            How it works
-          </Link>
-        </p>
+        {/* ── Impact Stats ── */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {IMPACT_STATS.map(({ value, label, icon: Icon, color }) => (
+            <div
+              key={label}
+              className="flex flex-col items-center gap-2 py-6 px-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-center"
+            >
+              <Icon className={`w-5 h-5 ${color}`} />
+              <span className="text-2xl font-bold text-gray-900 dark:text-gray-100 leading-none">
+                {value}
+              </span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">{label}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

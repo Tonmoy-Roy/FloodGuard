@@ -5,7 +5,7 @@ import SosModal from '../map/SosModal'
 
 export default function MapPage() {
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-950">
+    <main className="min-h-screen  dark:bg-gray-950">
       <MapBanner />
 
       <div className="pt-4 mb-5">
@@ -13,7 +13,7 @@ export default function MapPage() {
           <div className="order-2 md:order-1">
             <LeftSidebar></LeftSidebar>
           </div>
-          <div className="order-1 md:order-2 w-[86vw] md:w-[61.5vw] ml-5 md:ml-0">
+          <div className="order-1 md:order-2 w-[86vw] md:w-[61.5vw] ml-5 md:ml-0 mt-12">
             <LiveMap />
           </div>
         </div>

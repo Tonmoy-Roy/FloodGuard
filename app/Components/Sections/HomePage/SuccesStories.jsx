@@ -167,7 +167,7 @@ export default function RescueStoriesSection() {
   const visible = STORIES.slice(page * perPage, page * perPage + perPage);
 
   return (
-    <section className="w-full px-4 py-20 bg-gray-50 dark:bg-gray-950">
+    <section className="w-full px-4 py-10 bg-gray-50 dark:bg-gray-950">
       <div className="max-w-5xl mx-auto flex flex-col gap-10">
 
         {/* ── Header ── */}
