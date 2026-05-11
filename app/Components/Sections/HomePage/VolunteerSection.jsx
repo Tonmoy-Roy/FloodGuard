@@ -13,6 +13,7 @@ import {
   CheckCircle2,
   TrendingUp,
 } from "lucide-react";
+import CTAButton from "../../Reusable/CTAButton";
 
 // ─── Impact Stats ─────────────────────────────────────────────────────────────
 
@@ -171,15 +172,7 @@ export default function VolunteerSection() {
 
             {/* CTA buttons */}
             <div className="flex flex-wrap items-center gap-3">
-              <Button
-                className="gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-6"
-                asChild
-              >
-                <Link href="/volunteer/register">
-                  Join Rescue Team
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
+              <CTAButton></CTAButton>
               <Button variant="outline" className="gap-2" asChild>
                 <Link href="/volunteer/how-it-works">
                   Learn More
@@ -196,38 +189,6 @@ export default function VolunteerSection() {
             {BENEFITS.map((benefit) => (
               <BenefitCard key={benefit.title} benefit={benefit} />
             ))}
-
-            {/* Mission tracker preview card */}
-            <div className="mt-2 p-5 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
-              <p className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
-                Mission tracker preview
-              </p>
-              <div className="flex flex-col gap-3">
-                {[
-                  { label: "Rescue Completed", location: "Mirpur-10, Dhaka", status: "Done", statusBg: "bg-green-100 dark:bg-green-900/30", statusColor: "text-green-700 dark:text-green-400" },
-                  { label: "Food Delivery", location: "Demra, Dhaka", status: "Active", statusBg: "bg-orange-100 dark:bg-orange-900/30", statusColor: "text-orange-700 dark:text-orange-400" },
-                  { label: "Medical Assist", location: "Uttara, Dhaka", status: "Pending", statusBg: "bg-gray-100 dark:bg-gray-800", statusColor: "text-gray-500 dark:text-gray-400" },
-                ].map(({ label, location, status, statusBg, statusColor }) => (
-                  <div
-                    key={label}
-                    className="flex items-center justify-between py-2.5 border-b border-gray-200 dark:border-gray-800 last:border-0"
-                  >
-                    <div className="flex flex-col gap-0.5">
-                      <span className="text-sm font-medium text-gray-800 dark:text-gray-200">
-                        {label}
-                      </span>
-                      <span className="text-xs text-gray-400 flex items-center gap-1">
-                        <MapPin className="w-3 h-3" />
-                        {location}
-                      </span>
-                    </div>
-                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${statusBg} ${statusColor}`}>
-                      {status}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </div>

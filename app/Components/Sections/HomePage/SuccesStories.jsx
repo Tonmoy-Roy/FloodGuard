@@ -3,6 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import feniflood from '../../../../public/Images/people-wearing-life-jackets-migration-crisis.jpg';
+import insulin from '../../../../public/Images/insulin.png';
+import shelter from '../../../../public/Images/feni shelter.png';
+import recuebaby from '../../../../public/Images/rescue baby.png';
+
 import {
   MapPin,
   Users,
@@ -12,17 +18,18 @@ import {
   Heart,
   ShieldCheck,
 } from "lucide-react";
+import CTAButton from "../../Reusable/CTAButton";
 
 // ─── Mock Stories — replace with Firestore data ───────────────────────────────
 
 const STORIES = [
   {
     id: "r1",
-    image: "https://images.unsplash.com/photo-1547683905-f686c993aae5?w=600&q=80",
-    quote: "5 members of a family were rescued safely from a rooftop in Mirpur after 18 hours of being trapped by floodwater.",
+    image: feniflood,
+    quote: "5 members of a family were rescued safely from a rooftop in Feni Sadar after 18 hours of being trapped by floodwater.",
     familyCount: 5,
-    location: "Mirpur-10, Dhaka",
-    district: "Dhaka",
+    location: "Feni Sadar, Feni",
+    district: "Feni",
     volunteerName: "Rakib Hossain",
     volunteerRole: "Boat Volunteer",
     rescuedAt: "June 22, 2024",
@@ -31,11 +38,11 @@ const STORIES = [
   },
   {
     id: "r2",
-    image: "https://images.unsplash.com/photo-1530637099823-0b8d4a71baf4?w=600&q=80",
+    image: insulin,
     quote: "An elderly woman with diabetes was airlifted to a shelter with medical support. She received insulin within the first hour.",
     familyCount: 1,
-    location: "Sylhet Sadar, Sylhet",
-    district: "Sylhet",
+    location: "Daganbhuiyan, Feni",
+    district: "Feni",
     volunteerName: "Dr. Farhana Islam",
     volunteerRole: "Medical Volunteer",
     rescuedAt: "June 25, 2024",
@@ -44,11 +51,11 @@ const STORIES = [
   },
   {
     id: "r3",
-    image: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=600&q=80",
-    quote: "12 students from a school were safely evacuated after floodwater reached the second floor. All are now in the Uttara shelter.",
+    image: shelter,
+    quote: "12 students from a school were safely evacuated after floodwater reached the second floor. All are now in the Feni shelter.",
     familyCount: 12,
-    location: "Uttara, Dhaka",
-    district: "Dhaka",
+    location: "Sonagazi, Feni",
+    district: "Feni",
     volunteerName: "Mahfuz Rahman",
     volunteerRole: "Rescue Team Lead",
     rescuedAt: "June 28, 2024",
@@ -57,11 +64,11 @@ const STORIES = [
   },
   {
     id: "r4",
-    image: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=600&q=80",
+    image: recuebaby,
     quote: "A newborn baby and her mother were rescued within 30 minutes of the SOS alert being sent. The baby is healthy and safe.",
     familyCount: 2,
-    location: "Demra, Dhaka",
-    district: "Dhaka",
+    location: "Parshuram, Feni",
+    district: "Feni",
     volunteerName: "Nurse Sadia Begum",
     volunteerRole: "Medical Volunteer",
     rescuedAt: "July 1, 2024",
@@ -73,41 +80,47 @@ const STORIES = [
 // ─── Story Card ───────────────────────────────────────────────────────────────
 
 function StoryCard({ story }) {
+  const isImportedImage = typeof story.image !== "string";
   return (
     <div className="flex flex-col rounded-2xl overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm h-full">
-
       {/* Image */}
       <div className="relative w-full h-48 overflow-hidden bg-gray-100 dark:bg-gray-800">
-        <img
-          src={story.image}
-          alt={`Rescue story from ${story.location}`}
-          className="w-full h-full object-cover"
-        />
+        {isImportedImage ? (
+          <Image
+            src={story.image}
+            alt={`Rescue story from ${story.location}`}
+            fill
+            style={{ objectFit: "cover" }}
+            sizes="(max-width: 768px) 100vw, 33vw"
+            priority
+          />
+        ) : (
+          <img
+            src={story.image}
+            alt={`Rescue story from ${story.location}`}
+            className="w-full h-full object-cover"
+          />
+        )}
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-
         {/* Tag */}
         <span className={`absolute top-3 left-3 text-xs font-semibold px-2.5 py-1 rounded-full ${story.tagColor}`}>
-          {story.tag}
+         
         </span>
-
         {/* People count badge */}
         <div className="absolute bottom-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-sm text-white text-xs font-medium">
           <Users className="w-3.5 h-3.5" />
           {story.familyCount} {story.familyCount === 1 ? "person" : "people"} rescued
         </div>
       </div>
-
       {/* Content */}
       <div className="flex flex-col gap-4 p-5 flex-1">
-
         {/* Quote */}
         <blockquote className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
           <span className="text-2xl text-gray-300 dark:text-gray-600 font-serif leading-none mr-1">"</span>
           {story.quote}
           <span className="text-2xl text-gray-300 dark:text-gray-600 font-serif leading-none ml-1">"</span>
         </blockquote>
-
         <div className="mt-auto flex flex-col gap-3">
           {/* Location + date */}
           <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500">
@@ -117,10 +130,8 @@ function StoryCard({ story }) {
             </span>
             <span>{story.rescuedAt}</span>
           </div>
-
           {/* Divider */}
           <div className="w-full h-px bg-gray-100 dark:bg-gray-800" />
-
           {/* Volunteer info */}
           <div className="flex items-center gap-3">
             {/* Avatar initials */}
@@ -218,18 +229,7 @@ export default function RescueStoriesSection() {
             people rescued so far this season.
           </p>
           <div className="flex items-center gap-3">
-            <Button variant="outline" className="gap-2" asChild>
-              <Link href="/stories">
-                Read All Stories
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
-            <Button className="gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold" asChild>
-              <Link href="/volunteer/register">
-                Join Rescue Team
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </Button>
+            <CTAButton></CTAButton>
           </div>
         </div>
       </div>

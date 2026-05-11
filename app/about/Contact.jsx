@@ -40,9 +40,9 @@ const LinkedIn = (props) => (
 );
 
 // ─── EmailJS credentials (from your existing project) ────────────────────────
-const EMAILJS_SERVICE_ID  = "service_hiiv81g";
+const EMAILJS_SERVICE_ID = "service_hiiv81g";
 const EMAILJS_TEMPLATE_ID = "template_nzspmdk";
-const EMAILJS_PUBLIC_KEY  = "dqzfNz7gbv9q-B4mD";
+const EMAILJS_PUBLIC_KEY = "dqzfNz7gbv9q-B4mD";
 
 // ─── Contact Links ────────────────────────────────────────────────────────────
 
@@ -121,11 +121,11 @@ function ContactCard({ contact }) {
 // ─── Feedback Form ────────────────────────────────────────────────────────────
 
 function FeedbackForm() {
-  const [name, setName]       = useState("");
-  const [email, setEmail]     = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [sending, setSending] = useState(false);
-  const [sent, setSent]       = useState(false);
+  const [sent, setSent] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -226,7 +226,7 @@ function FeedbackForm() {
       <Button
         type="submit"
         disabled={sending || !name || !email || !message}
-        className="w-full gap-2 bg-gray-900 dark:bg-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 text-white font-semibold disabled:opacity-50"
+        className="flex justify-center items-center w-full gap-2 bg-gray-900 dark:bg-white dark:text-gray-900 hover:bg-gray-700 dark:hover:bg-gray-200 text-white font-semibold disabled:opacity-50 p-2 rounded-lg"
       >
         {sending ? (
           <>
@@ -235,8 +235,8 @@ function FeedbackForm() {
           </>
         ) : (
           <>
-            <Send className="w-4 h-4" />
             Send Message
+            <Send className="w-4 h-4" />
           </>
         )}
       </Button>

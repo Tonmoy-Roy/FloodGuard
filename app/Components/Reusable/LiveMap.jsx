@@ -18,19 +18,19 @@ import "leaflet/dist/leaflet.css";
 // ─── Mock Data — Feni District focused ───────────────────────────────────────
 
 const MOCK_SOS_MARKERS = [
-  { id: "s1", lat: 23.0021, lng: 91.3960, type: "Rescue Needed",    peopleCount: 8,  status: "pending", area: "Feni Sadar" },
-  { id: "s2", lat: 22.9750, lng: 91.4200, type: "Medical Emergency", peopleCount: 3,  status: "pending", area: "Daganbhuiyan" },
-  { id: "s3", lat: 23.0300, lng: 91.3600, type: "Food Needed",       peopleCount: 15, status: "active",  area: "Chhagalnaiya" },
-  { id: "s4", lat: 22.9500, lng: 91.3800, type: "Boat Needed",       peopleCount: 6,  status: "pending", area: "Sonagazi" },
-  { id: "s5", lat: 23.0600, lng: 91.4100, type: "Shelter Needed",    peopleCount: 11, status: "active",  area: "Parshuram" },
-  { id: "s6", lat: 22.9900, lng: 91.4500, type: "Rescue Needed",    peopleCount: 4,  status: "pending", area: "Fulgazi" },
+  { id: "s1", lat: 23.0021, lng: 91.3960, type: "Rescue Needed", peopleCount: 8, status: "pending", area: "Feni Sadar" },
+  { id: "s2", lat: 22.9750, lng: 91.4200, type: "Medical Emergency", peopleCount: 3, status: "pending", area: "Daganbhuiyan" },
+  { id: "s3", lat: 23.0300, lng: 91.3600, type: "Food Needed", peopleCount: 15, status: "active", area: "Chhagalnaiya" },
+  { id: "s4", lat: 22.9500, lng: 91.3800, type: "Boat Needed", peopleCount: 6, status: "pending", area: "Sonagazi" },
+  { id: "s5", lat: 23.0600, lng: 91.4100, type: "Shelter Needed", peopleCount: 11, status: "active", area: "Parshuram" },
+  { id: "s6", lat: 22.9900, lng: 91.4500, type: "Rescue Needed", peopleCount: 4, status: "pending", area: "Fulgazi" },
 ];
 
 const MOCK_SHELTERS = [
-  { id: "sh1", lat: 23.0050, lng: 91.3980, name: "Feni Govt College Shelter",    available: 180, capacity: 400, food: true  },
-  { id: "sh2", lat: 22.9800, lng: 91.4100, name: "Daganbhuiyan High School",     available: 90,  capacity: 250, food: true  },
+  { id: "sh1", lat: 23.0050, lng: 91.3980, name: "Feni Govt College Shelter", available: 180, capacity: 400, food: true },
+  { id: "sh2", lat: 22.9800, lng: 91.4100, name: "Daganbhuiyan High School", available: 90, capacity: 250, food: true },
   { id: "sh3", lat: 23.0400, lng: 91.3700, name: "Chhagalnaiya Upazila Complex", available: 210, capacity: 300, food: false },
-  { id: "sh4", lat: 22.9600, lng: 91.3900, name: "Sonagazi Relief Center",       available: 55,  capacity: 200, food: true  },
+  { id: "sh4", lat: 22.9600, lng: 91.3900, name: "Sonagazi Relief Center", available: 55, capacity: 200, food: true },
 ];
 
 // Feni District flood zones — based on real flood-prone upazilas
@@ -85,24 +85,24 @@ const MOCK_FLOOD_ZONES = [
 // ─── Legend & Stats ───────────────────────────────────────────────────────────
 
 const LEGEND_ITEMS = [
-  { color: "bg-red-500",            label: "Critical SOS" },
-  { color: "bg-orange-400",         label: "Active Rescue" },
-  { color: "bg-blue-500",           label: "Safe Shelter" },
+  { color: "bg-red-500", label: "Critical SOS" },
+  { color: "bg-orange-400", label: "Active Rescue" },
+  { color: "bg-blue-500", label: "Safe Shelter" },
   { color: "bg-red-400 opacity-50", label: "High Flood Zone" },
-  { color: "bg-orange-300",         label: "Moderate Zone" },
-  { color: "bg-yellow-300",         label: "Low Risk Zone" },
+  { color: "bg-orange-300", label: "Moderate Zone" },
+  { color: "bg-yellow-300", label: "Low Risk Zone" },
 ];
 
 const MAP_STATS = [
-  { icon: Shield,        label: "Active SOS",   value: MOCK_SOS_MARKERS.length, color: "text-red-500"    },
-  { icon: Building2,     label: "Shelters",     value: MOCK_SHELTERS.length,    color: "text-blue-500"   },
-  { icon: AlertTriangle, label: "Flood Zones",  value: MOCK_FLOOD_ZONES.length, color: "text-orange-500" },
+  { icon: Shield, label: "Active SOS", value: MOCK_SOS_MARKERS.length, color: "text-red-500" },
+  { icon: Building2, label: "Shelters", value: MOCK_SHELTERS.length, color: "text-blue-500" },
+  { icon: AlertTriangle, label: "Flood Zones", value: MOCK_FLOOD_ZONES.length, color: "text-orange-500" },
 ];
 
 const FLOOD_ZONE_STYLES = {
-  high:   { color: "#ef4444", fillOpacity: 0.38, weight: 2   },
+  high: { color: "#ef4444", fillOpacity: 0.38, weight: 2 },
   medium: { color: "#f97316", fillOpacity: 0.28, weight: 1.5 },
-  low:    { color: "#eab308", fillOpacity: 0.18, weight: 1   },
+  low: { color: "#eab308", fillOpacity: 0.18, weight: 1 },
 };
 
 // ─── SVG Marker Helpers ───────────────────────────────────────────────────────
@@ -152,8 +152,8 @@ export default function FloodMapPreview() {
         delete L.Icon.Default.prototype._getIconUrl;
         L.Icon.Default.mergeOptions({
           iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-          iconUrl:       "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-          shadowUrl:     "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+          iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+          shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
         });
 
         // ── Feni center: 23.0021° N, 91.3960° E ──
@@ -177,11 +177,11 @@ export default function FloodMapPreview() {
         MOCK_FLOOD_ZONES.forEach((zone) => {
           const style = FLOOD_ZONE_STYLES[zone.severity];
           L.polygon(zone.coords, {
-            color:       style.color,
-            fillColor:   style.color,
+            color: style.color,
+            fillColor: style.color,
             fillOpacity: style.fillOpacity,
-            weight:      style.weight,
-            dashArray:   zone.severity === "low" ? "4 4" : null,
+            weight: style.weight,
+            dashArray: zone.severity === "low" ? "4 4" : null,
           })
             .addTo(map)
             .bindPopup(
@@ -196,9 +196,9 @@ export default function FloodMapPreview() {
         // ── Shelters ──
         MOCK_SHELTERS.forEach((shelter) => {
           const icon = L.divIcon({
-            html:       shelterSvgIcon(),
-            className:  "",
-            iconSize:   [28, 28],
+            html: shelterSvgIcon(),
+            className: "",
+            iconSize: [28, 28],
             iconAnchor: [14, 14],
           });
 
@@ -216,9 +216,9 @@ export default function FloodMapPreview() {
         // ── SOS Markers ──
         MOCK_SOS_MARKERS.forEach((sos) => {
           const icon = L.divIcon({
-            html:       sosSvgIcon(sos.status),
-            className:  "",
-            iconSize:   [32, 32],
+            html: sosSvgIcon(sos.status),
+            className: "",
+            iconSize: [32, 32],
             iconAnchor: [16, 16],
           });
 
@@ -240,7 +240,7 @@ export default function FloodMapPreview() {
         L.marker([23.0021, 91.3960], {
           icon: L.divIcon({
             html: `<div style="font-family:sans-serif;font-size:11px;font-weight:700;color:#1e40af;background:rgba(255,255,255,0.85);padding:2px 8px;border-radius:99px;border:1px solid #bfdbfe;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,0.1)">📍 Feni District</div>`,
-            className:  "",
+            className: "",
             iconAnchor: [40, -8],
           }),
         }).addTo(map);
@@ -270,14 +270,15 @@ export default function FloodMapPreview() {
   }
 
   return (
-    <section className="w-full pt-4 bg-white dark:bg-gray-950 ml-2">
+    <section className="w-full pt-4 bg-white dark:bg-gray-950 ml-2 text-center md:text-left">
       <div className="max-w-5xl mx-auto flex flex-col gap-6">
 
         {/* ── Header ── */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center md:justify-start gap-2">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+
               <span className="text-xs font-semibold text-red-500 uppercase tracking-widest">
                 Live · Feni District
               </span>
@@ -291,7 +292,7 @@ export default function FloodMapPreview() {
           </div>
 
           {/* Stats */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center gap-3">
             {MAP_STATS.map(({ icon: Icon, label, value, color }) => (
               <div
                 key={label}
@@ -379,12 +380,15 @@ export default function FloodMapPreview() {
             </span>
           </div>
 
-          <Button className="gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold" asChild>
-            <Link href="/map">
-              View Full Live Map
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </Button>
+            <Button
+              className="gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg p-2"
+              asChild
+            >
+              <Link href="/map" className="group flex justify-center items-center">
+                View Full Live Map
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </Button>
         </div>
       </div>
     </section>

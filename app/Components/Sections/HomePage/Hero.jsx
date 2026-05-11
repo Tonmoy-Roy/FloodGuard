@@ -40,7 +40,7 @@ const HERO_CARDS = [
     description:
       "Flood trapped? One tap sends your live location and SOS alert to nearby rescue teams instantly.",
     cta: "Send SOS Now",
-    ctaClass: "bg-red-500 hover:bg-red-600 text-white",
+    ctaClass: "bg-red-600 hover:bg-red-700 text-white",
     iconBg: "bg-red-100 dark:bg-red-900/30",
     iconColor: "text-red-500",
     border: "border-red-200 dark:border-red-800",
@@ -132,12 +132,12 @@ function HeroCard({ card }) {
 
       {/* CTA */}
       <Button
-        className={`w-full gap-2 font-semibold ${card.ctaClass}`}
+        className={`w-full gap-2 font-semibold p-2 rounded-lg ${card.ctaClass}`}
         asChild
       >
-        <Link href={card.href}>
+        <Link href={card.href} className="flex justify-center items-center">
           {card.cta}
-          <ArrowRight className="w-4 h-4" />
+          {/* <ArrowRight className="w-4 h-4" /> */}
         </Link>
       </Button>
     </div>
