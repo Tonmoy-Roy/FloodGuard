@@ -40,6 +40,7 @@ import {
 } from "lucide-react";
 
 const MOCK_USER = {
+  name: "Admin",
   email: "admin@floodguard.bd",
   role: "admin",
   avatarInitials: "AD",
@@ -59,6 +60,10 @@ const TRANSLATIONS = {
     floodRisk: "Flood Risk",
 
     emergencyPlatform: "Emergency Platform",
+
+    becomeVolunteer: "Become Volunteer",
+    volunteer: "Volunteer",
+    sos: "SOS",
   },
 
   bn: {
@@ -74,6 +79,10 @@ const TRANSLATIONS = {
     floodRisk: "বন্যা ঝুঁকি",
 
     emergencyPlatform: "জরুরি প্ল্যাটফর্ম",
+
+    becomeVolunteer: "ভলান্টিয়ার হন",
+    volunteer: "ভলান্টিয়ার",
+    sos: "এসওএস",
   },
 };
 

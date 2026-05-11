@@ -315,7 +315,7 @@ export default function FloodMapPreview() {
           <div ref={mapRef} className="w-full z-0" style={{ height: "440px" }} />
 
           {/* Legend overlay */}
-          <div className="absolute bottom-4 left-4 z-[400] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl px-3 py-2.5 shadow-sm flex flex-col gap-1.5">
+          <div className="absolute bottom-4 left-4 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl px-3 py-2.5 shadow-sm flex flex-col gap-1.5">
             <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-0.5">
               Legend
             </span>
@@ -328,7 +328,7 @@ export default function FloodMapPreview() {
           </div>
 
           {/* Last updated badge */}
-          <div className="absolute top-3 left-3 z-[400] flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
+          <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
             <span className="text-[11px] text-gray-500 dark:text-gray-400">
               Updated {lastUpdated.toLocaleTimeString("en-BD", { hour: "2-digit", minute: "2-digit" })}
@@ -343,7 +343,7 @@ export default function FloodMapPreview() {
           </div>
 
           {/* Feni alert chip */}
-          <div className="absolute top-3 right-12 z-[400] flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 shadow-sm">
+          <div className="absolute top-3 right-12 flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 shadow-sm">
             <AlertTriangle className="w-3 h-3 text-red-500" />
             <span className="text-[11px] font-semibold text-red-600 dark:text-red-400 hidden md:block">
               Feni — High Flood Alert
