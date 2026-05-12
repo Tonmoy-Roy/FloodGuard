@@ -55,8 +55,6 @@ const ALERT_STYLES = {
   },
 };
 
-// ─── Single Alert Banner ──────────────────────────────────────────────────────
-
 function MapBanner({ alert, onClose }) {
   const style = ALERT_STYLES[alert.type];
   const Icon  = alert.icon;
@@ -96,8 +94,6 @@ function MapBanner({ alert, onClose }) {
     </div>
   );
 }
-
-// ─── Top Alert Banner (rotates through alerts) ────────────────────────────────
 
 export default function TopMapBanner() {
   const [alerts, setAlerts]     = useState(ALERTS);

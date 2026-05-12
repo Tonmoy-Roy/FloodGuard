@@ -20,8 +20,6 @@ import {
 } from "lucide-react";
 import CTAButton from "../../Reusable/CTAButton";
 
-// ─── Mock Stories — replace with Firestore data ───────────────────────────────
-
 const STORIES = [
   {
     id: "r1",
@@ -76,8 +74,6 @@ const STORIES = [
     tagColor: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300",
   },
 ];
-
-// ─── Story Card ───────────────────────────────────────────────────────────────
 
 function StoryCard({ story }) {
   const isImportedImage = typeof story.image !== "string";

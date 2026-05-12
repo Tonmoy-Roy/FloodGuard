@@ -13,8 +13,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// ─── Emergency Types ──────────────────────────────────────────────────────────
-
 const EMERGENCY_TYPES = [
   { id: "rescue",  label: "Rescue Needed",     emoji: "🛶", color: "border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-800 text-red-700 dark:text-red-300" },
   { id: "medical", label: "Medical Emergency",  emoji: "🚑", color: "border-orange-300 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-800 text-orange-700 dark:text-orange-300" },
@@ -25,8 +23,6 @@ const EMERGENCY_TYPES = [
 ];
 
 const PEOPLE_OPTIONS = ["1", "2", "3–5", "6–10", "10+"];
-
-// ─── Step indicator ───────────────────────────────────────────────────────────
 
 function StepDots({ current, total }) {
   return (
@@ -47,8 +43,6 @@ function StepDots({ current, total }) {
   );
 }
 
-// ─── SOS Modal ────────────────────────────────────────────────────────────────
-
 function SOSModal({ onClose }) {
   const [step, setStep]               = useState(0); // 0 = type, 1 = details, 2 = success
   const [selectedType, setType]       = useState(null);
@@ -61,7 +55,6 @@ function SOSModal({ onClose }) {
   const [locError, setLocError]       = useState("");
   const [submitting, setSubmitting]   = useState(false);
 
-  // ── Get GPS location ──
   function handleGetLocation() {
     if (!navigator.geolocation) {
       setLocError("Geolocation not supported on this device.");
@@ -80,21 +73,8 @@ function SOSModal({ onClose }) {
       }
     );
   }
-
-  // ── Submit SOS ──
   async function handleSubmit() {
     setSubmitting(true);
-    // TODO: send to Firestore
-    // await addDoc(collection(db, "sos_requests"), {
-    //   type: selectedType,
-    //   peopleCount,
-    //   hasChildren,
-    //   hasElderly,
-    //   note,
-    //   location,
-    //   status: "pending",
-    //   createdAt: serverTimestamp(),
-    // });
     await new Promise((r) => setTimeout(r, 1200)); // simulate API
     setSubmitting(false);
     setStep(2);
@@ -299,8 +279,6 @@ function SOSModal({ onClose }) {
       </>
     );
   }
-
-  // ── Step 2: Success ──
   return (
     <div className="flex flex-col items-center text-center gap-5 py-4">
       <div className="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
@@ -326,8 +304,6 @@ function SOSModal({ onClose }) {
     </div>
   );
 }
-
-// ─── Floating SOS Button ──────────────────────────────────────────────────────
 
 export default function FloatingSosButton() {
   const [open, setOpen] = useState(false);

@@ -1,7 +1,5 @@
 "use client";
 
-// Install: npm install emailjs-com react-hot-toast
-
 import { useState } from "react";
 import { Mail, Send, CheckCircle2, Loader2, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -39,12 +37,9 @@ const LinkedIn = (props) => (
   </svg>
 );
 
-// ─── EmailJS credentials (from your existing project) ────────────────────────
 const EMAILJS_SERVICE_ID = "service_hiiv81g";
 const EMAILJS_TEMPLATE_ID = "template_nzspmdk";
 const EMAILJS_PUBLIC_KEY = "dqzfNz7gbv9q-B4mD";
-
-// ─── Contact Links ────────────────────────────────────────────────────────────
 
 const CONTACT_LINKS = [
   {
@@ -85,8 +80,6 @@ const CONTACT_LINKS = [
   },
 ];
 
-// ─── Contact Link Card ────────────────────────────────────────────────────────
-
 function ContactCard({ contact }) {
   const Icon = contact.icon;
 
@@ -117,8 +110,6 @@ function ContactCard({ contact }) {
     </a>
   );
 }
-
-// ─── Feedback Form ────────────────────────────────────────────────────────────
 
 function FeedbackForm() {
   const [name, setName] = useState("");
@@ -243,8 +234,6 @@ function FeedbackForm() {
     </form>
   );
 }
-
-// ─── Contact Section ──────────────────────────────────────────────────────────
 
 export default function ContactSection() {
   return (

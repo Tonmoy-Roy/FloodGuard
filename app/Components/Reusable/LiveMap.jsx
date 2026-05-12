@@ -147,7 +147,6 @@ export default function FloodMapPreview() {
           shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
         });
 
-        // ── Feni center: 23.0021° N, 91.3960° E ──
         const map = L.map(mapRef.current, {
           center: [23.0021, 91.3960],
           zoom: 11,

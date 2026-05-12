@@ -2,8 +2,6 @@
 
 import { Waves, AlertTriangle, Heart } from "lucide-react";
 
-// ─── Why We Built This — reason cards ────────────────────────────────────────
-
 const REASONS = [
   {
     icon: AlertTriangle,
@@ -30,8 +28,6 @@ const REASONS = [
     bg: "bg-green-50 dark:bg-green-900/20",
   },
 ];
-
-// ─── About Intro Section ──────────────────────────────────────────────────────
 
 export default function AboutIntroSection() {
   return (

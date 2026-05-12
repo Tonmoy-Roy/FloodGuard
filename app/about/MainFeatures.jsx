@@ -3,8 +3,6 @@
 import Link from "next/link";
 import { Shield, Map, Building2, HeartHandshake, CloudRain, ArrowRight } from "lucide-react";
 
-// ─── Features Data ────────────────────────────────────────────────────────────
-
 const FEATURES = [
   {
     id: "sos",
@@ -98,8 +96,6 @@ const FEATURES = [
   },
 ];
 
-// ─── Feature Card ─────────────────────────────────────────────────────────────
-
 function FeatureCard({ feature }) {
   const Icon = feature.icon;
 
@@ -148,8 +144,6 @@ function FeatureCard({ feature }) {
     </div>
   );
 }
-
-// ─── Main Features Section ────────────────────────────────────────────────────
 
 export default function MainFeaturesSection() {
   return (
