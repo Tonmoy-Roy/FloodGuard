@@ -14,12 +14,12 @@ import {
 import { Button } from "@/components/ui/button";
 
 const EMERGENCY_TYPES = [
-  { id: "rescue",  label: "Rescue Needed",     emoji: "🛶", color: "border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-800 text-red-700 dark:text-red-300" },
-  { id: "medical", label: "Medical Emergency",  emoji: "🚑", color: "border-orange-300 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-800 text-orange-700 dark:text-orange-300" },
-  { id: "food",    label: "Food Needed",        emoji: "🍞", color: "border-yellow-300 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-800 text-yellow-700 dark:text-yellow-300" },
-  { id: "shelter", label: "Shelter Needed",     emoji: "🏠", color: "border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800 text-blue-700 dark:text-blue-300" },
-  { id: "boat",    label: "Boat Needed",        emoji: "⛵", color: "border-cyan-300 bg-cyan-50 dark:bg-cyan-900/20 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300" },
-  { id: "missing", label: "Missing Person",     emoji: "🔍", color: "border-purple-300 bg-purple-50 dark:bg-purple-900/20 dark:border-purple-800 text-purple-700 dark:text-purple-300" },
+  { id: "rescue", label: "Rescue Needed", emoji: "🛶", color: "border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-800 text-red-700 dark:text-red-300" },
+  { id: "medical", label: "Medical Emergency", emoji: "🚑", color: "border-orange-300 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-800 text-orange-700 dark:text-orange-300" },
+  { id: "food", label: "Food Needed", emoji: "🍞", color: "border-yellow-300 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-800 text-yellow-700 dark:text-yellow-300" },
+  { id: "shelter", label: "Shelter Needed", emoji: "🏠", color: "border-blue-300 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800 text-blue-700 dark:text-blue-300" },
+  { id: "boat", label: "Boat Needed", emoji: "⛵", color: "border-cyan-300 bg-cyan-50 dark:bg-cyan-900/20 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300" },
+  { id: "missing", label: "Missing Person", emoji: "🔍", color: "border-purple-300 bg-purple-50 dark:bg-purple-900/20 dark:border-purple-800 text-purple-700 dark:text-purple-300" },
 ];
 
 const PEOPLE_OPTIONS = ["1", "2", "3–5", "6–10", "10+"];
@@ -30,13 +30,12 @@ function StepDots({ current, total }) {
       {Array.from({ length: total }).map((_, i) => (
         <div
           key={i}
-          className={`rounded-full transition-all ${
-            i === current
-              ? "w-4 h-1.5 bg-red-500"
-              : i < current
+          className={`rounded-full transition-all ${i === current
+            ? "w-4 h-1.5 bg-red-500"
+            : i < current
               ? "w-1.5 h-1.5 bg-red-300"
               : "w-1.5 h-1.5 bg-gray-200 dark:bg-gray-700"
-          }`}
+            }`}
         />
       ))}
     </div>
@@ -44,16 +43,16 @@ function StepDots({ current, total }) {
 }
 
 function SOSModal({ onClose }) {
-  const [step, setStep]               = useState(0); // 0 = type, 1 = details, 2 = success
-  const [selectedType, setType]       = useState(null);
-  const [peopleCount, setPeople]      = useState("1");
-  const [hasChildren, setChildren]    = useState(false);
-  const [hasElderly, setElderly]      = useState(false);
-  const [note, setNote]               = useState("");
-  const [locating, setLocating]       = useState(false);
-  const [location, setLocation]       = useState(null);
-  const [locError, setLocError]       = useState("");
-  const [submitting, setSubmitting]   = useState(false);
+  const [step, setStep] = useState(0); // 0 = type, 1 = details, 2 = success
+  const [selectedType, setType] = useState(null);
+  const [peopleCount, setPeople] = useState("1");
+  const [hasChildren, setChildren] = useState(false);
+  const [hasElderly, setElderly] = useState(false);
+  const [note, setNote] = useState("");
+  const [locating, setLocating] = useState(false);
+  const [location, setLocation] = useState(null);
+  const [locError, setLocError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   function handleGetLocation() {
     if (!navigator.geolocation) {
@@ -101,11 +100,10 @@ function SOSModal({ onClose }) {
             <button
               key={type.id}
               onClick={() => setType(type.id)}
-              className={`flex items-center gap-2.5 p-3 rounded-xl border-2 text-sm font-medium transition-all text-left ${
-                selectedType === type.id
-                  ? type.color + " ring-2 ring-offset-1 ring-red-400"
-                  : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
-              }`}
+              className={`flex items-center gap-2.5 p-3 rounded-xl border-2 text-sm font-medium transition-all text-left ${selectedType === type.id
+                ? type.color + " ring-2 ring-offset-1 ring-red-400"
+                : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-600"
+                }`}
             >
               <span className="text-xl">{type.emoji}</span>
               <span className="leading-snug">{type.label}</span>
@@ -114,7 +112,7 @@ function SOSModal({ onClose }) {
         </div>
 
         <Button
-          className="w-full gap-2 bg-red-500 hover:bg-red-600 text-white font-semibold"
+          className="flex p-2 rounded-lg w-full gap-2 bg-red-500 hover:bg-red-600 text-white font-semibold justify-center items-center"
           disabled={!selectedType}
           onClick={() => setStep(1)}
         >
@@ -155,11 +153,10 @@ function SOSModal({ onClose }) {
                 <button
                   key={opt}
                   onClick={() => setPeople(opt)}
-                  className={`px-3.5 py-1.5 rounded-lg border text-sm font-medium transition-all ${
-                    peopleCount === opt
-                      ? "bg-red-500 text-white border-red-500"
-                      : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-red-300 hover:text-red-500"
-                  }`}
+                  className={`px-3.5 py-1.5 rounded-lg border text-sm font-medium transition-all ${peopleCount === opt
+                    ? "bg-red-500 text-white border-red-500"
+                    : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-red-300 hover:text-red-500"
+                    }`}
                 >
                   {opt}
                 </button>
@@ -180,11 +177,10 @@ function SOSModal({ onClose }) {
                 <button
                   key={label}
                   onClick={() => set(!value)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm font-medium transition-all ${
-                    value
-                      ? "bg-orange-100 dark:bg-orange-900/30 border-orange-400 text-orange-700 dark:text-orange-300"
-                      : "border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-orange-300"
-                  }`}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-sm font-medium transition-all ${value
+                    ? "bg-orange-100 dark:bg-orange-900/30 border-orange-400 text-orange-700 dark:text-orange-300"
+                    : "border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 hover:border-orange-300"
+                    }`}
                 >
                   {label}
                 </button>
@@ -253,7 +249,7 @@ function SOSModal({ onClose }) {
             Back
           </button>
           <Button
-            className="flex-1 gap-2 bg-red-500 hover:bg-red-600 text-white font-semibold"
+            className="flex p-2 rounded-lg w-full gap-2 bg-red-500 hover:bg-red-600 text-white font-semibold justify-center items-center"
             disabled={!location || submitting}
             onClick={handleSubmit}
           >
@@ -264,8 +260,8 @@ function SOSModal({ onClose }) {
               </>
             ) : (
               <>
-                <Shield className="w-4 h-4" />
                 Send SOS Now
+                <Shield className="w-4 h-4" />
               </>
             )}
           </Button>
