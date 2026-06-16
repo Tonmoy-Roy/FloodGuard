@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "../Ui/button";
+import { Button } from "../ui/button";
 
 import {
   DropdownMenu,
@@ -12,12 +12,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../Ui/dropdown-menu";
+} from "../ui/dropdown-menu";
 
 import {
   Info,
   Bell,
   CloudRain,
+  Droplets,
+  BookOpen,
   Home,
   LayoutDashboard,
   LogOut,
@@ -44,6 +46,8 @@ const TRANSLATIONS = {
     home: "Home",
     liveMap: "Live Map",
     about: "About Us",
+    flood: "Weather",
+    awareness: "Awareness",
     dashboard: "Dashboard",
     settings: "Settings",
     manageUsers: "Manage Users",
@@ -58,6 +62,8 @@ const TRANSLATIONS = {
     home: "হোম",
     liveMap: "লাইভ ম্যাপ",
     about: "আমাদের সম্পর্কে",
+    flood: "আবহাওয়া",
+    awareness: "সচেতনতা",
     dashboard: "ড্যাশবোর্ড",
     settings: "সেটিংস",
     manageUsers: "ইউজার ম্যানেজ",
@@ -73,6 +79,8 @@ const TRANSLATIONS = {
 const NAV_LINKS = [
   { href: "/", key: "home", icon: Home },
   { href: "/map", key: "liveMap", icon: Map },
+  { href: "/flood", key: "flood", icon: Droplets },
+  { href: "/awareness", key: "awareness", icon: BookOpen },
   { href: "/about", key: "about", icon: Info },
 ];
 
@@ -206,6 +214,7 @@ function UserMenu({ user, language }) {
   );
 }
 
+// ─── Simple hamburger menu (replaces Sheet) ───────────────────────────────────
 function MobileNav({ user, pathname, language, open, onClose }) {
   const t = TRANSLATIONS[language];
   const dashboardHref = DASHBOARD_ROUTE[user.role];
@@ -341,7 +350,7 @@ function MobileNav({ user, pathname, language, open, onClose }) {
 export default function Navbar() {
   const pathname = usePathname();
   const [language, setLanguage] = useState("en");
-  const [mobileOpen, setMobileOpen] = useState(false);  
+  const [mobileOpen, setMobileOpen] = useState(false);  // ← single source of truth
 
   const t = TRANSLATIONS[language];
   const user = MOCK_USER;
@@ -399,10 +408,6 @@ export default function Navbar() {
                 className="flex items-center rounded-r-none"
                 asChild
               >
-                <Link href="/volunteer/register">
-                  <HeartHandshake className="w-6 h-6 text-green-600" />
-                  {t.volunteer}
-                </Link>
               </Button>
             </div>
 
@@ -424,6 +429,7 @@ export default function Navbar() {
         </div>
       </header>
 
+      {/* Mobile drawer — rendered outside the header so it can overlay everything */}
       <MobileNav
         user={user}
         pathname={pathname}
