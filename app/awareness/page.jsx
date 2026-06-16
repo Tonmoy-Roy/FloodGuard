@@ -1,6 +1,6 @@
 import React from 'react';
-import AwarnessHero from '../awareness/AwarenessHero.jsx'
-import Instructions from '../awareness/Instructions.jsx'
+import AwarnessHero from './AwarenessHero.jsx'
+import Instructions from './Instructions.jsx'
 const page = () => {
     return (
         <div>
