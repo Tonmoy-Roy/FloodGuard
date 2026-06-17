@@ -70,7 +70,7 @@ const CONTACT_BADGE = {
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-gray-900 dark:bg-gray-950 text-gray-300">
+    <footer className="w-full bg-gray-900  text-gray-300">
 
       {/* ── Emergency Banner ── */}
       <div className="w-full bg-red-600 px-4 py-3">

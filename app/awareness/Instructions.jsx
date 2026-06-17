@@ -3,6 +3,8 @@ import waterproof from '../../public/Images/Gemini_Generated_Image_rf7vmmrf7vmmr
 import duringflood from '../../public/Images/Gemini_Generated_Image_8inzjh8inzjh8inz.png'
 import safety from '../../public/Images/safety_rs1vdhrs1vdhrs1v.png'
 import afterflood from '../../public/Images/afterflood_i67mwji67mwji67m.png'
+import feniflood from '../../public//Images/flooded-home-3x2-1.jpg'
+import afterfeni from '../../public/Images/Flood-Feni-AFP-aff3315d99f0172d80f7cb115784dfe9.webp'
 
 import {
   CheckCircle2,
@@ -72,11 +74,16 @@ function BeforeFloodSection() {
         Act before the flood arrives — preparation can save lives.
       </p>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-6">
+        <Image
+          src={feniflood}
+          alt=""
+          className="rounded-lg md:h-[60vh] md:w-[40vw]"
+        />
         <Image
           src={waterproof}
           alt=""
-          className="rounded-lg md:h-[60vh] md:w-[50vw]"
+          className="rounded-lg md:h-[60vh] md:w-[40vw]"
         />
       </div>
     </section>
@@ -146,11 +153,18 @@ function AfterFloodSection() {
       {/* Card */}
 
       {/* Image slot */}
-      <Image
-        src={afterflood}
-        alt=''
-        className="rounded-lg md:h-[60vh] md:w-[50vw] mx-auto"
-      />
+      <div className="flex justify-center gap-6">
+        <Image
+          src={afterfeni}
+          alt=''
+          className="rounded-lg md:h-[60vh] md:w-[40vw] mx-auto"
+        />
+        <Image
+          src={afterflood}
+          alt=''
+          className="rounded-lg md:h-[60vh] md:w-[40vw] mx-auto"
+        />
+      </div>
     </section>
   );
 }
