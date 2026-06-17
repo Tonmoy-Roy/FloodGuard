@@ -74,7 +74,7 @@ function BeforeFloodSection() {
         Act before the flood arrives — preparation can save lives.
       </p>
 
-      <div className="flex justify-center gap-6">
+      <div className="grid md:grid-cols-2 gap-5 mt-6">
         <Image
           src={feniflood}
           alt=""
@@ -153,7 +153,7 @@ function AfterFloodSection() {
       {/* Card */}
 
       {/* Image slot */}
-      <div className="flex justify-center gap-6">
+      <div className="grid md:grid-cols-2 gap-5 mt-6">
         <Image
           src={afterfeni}
           alt=''

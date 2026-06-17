@@ -310,7 +310,7 @@ export default function FloatingSosButton() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Send SOS"
-        className="fixed bottom-6 right-6 z-[500] flex items-center gap-2.5 px-5 py-3.5 rounded-full bg-red-500 hover:bg-red-600 active:scale-95 text-white font-bold text-sm shadow-lg shadow-red-500/40 transition-all"
+        className="fixed bottom-22 right-6 z-[500] flex items-center gap-2.5 px-5 py-3.5 rounded-full bg-red-500 hover:bg-red-600 active:scale-95 text-white font-bold text-sm shadow-lg shadow-red-500/40 transition-all"
       >
         {/* Outer pulse ring */}
         <span className="absolute inset-0 rounded-full bg-red-500 animate-ping opacity-25 pointer-events-none" />

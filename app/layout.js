@@ -2,6 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "./Components/Layout/Navbar"; 
 import Footer from "./Components/Layout/Footer"; 
+import FloodAIAssistant from "./Components/Layout/AiAssistant";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,7 +28,8 @@ export default function RootLayout({ children }) {
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         <Navbar />
         {children}
-        <Footer /> 
+        <Footer />
+        <FloodAIAssistant />
       </body>
     </html>
   );
