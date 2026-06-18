@@ -16,9 +16,6 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-// ── REUSABLE COMPONENTS ──────────────────────────────────────────────────────
-
-/** Drop-in image placeholder — replace <ImageSlot> with <img src="..." /> or <Image> */
 function ImageSlot({ label = "Add image here" }) {
   return (
     <div className="w-full aspect-video rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-800/40 flex flex-col items-center justify-center gap-2 text-gray-400 dark:text-gray-500">
@@ -60,7 +57,6 @@ function SectionHeader({ icon: Icon, label, color }) {
   );
 }
 
-// ── SECTION 3: BEFORE FLOOD ──────────────────────────────────────────────────
 function BeforeFloodSection() {
   return (
     <section className="w-full">
@@ -90,7 +86,6 @@ function BeforeFloodSection() {
   );
 }
 
-// ── SECTION 4: DURING FLOOD ──────────────────────────────────────────────────
 function DuringFloodSection() {
 
   return (
@@ -126,7 +121,6 @@ function DuringFloodSection() {
           </p>
 
 
-          {/* extra image slot inside dont card for a warning visual */}
           <div className="mt-5">
             <Image
               src={safety}
@@ -140,7 +134,6 @@ function DuringFloodSection() {
   );
 }
 
-// ── SECTION 5: AFTER FLOOD ───────────────────────────────────────────────────
 function AfterFloodSection() {
   return (
     <section className="w-full">
@@ -169,7 +162,6 @@ function AfterFloodSection() {
   );
 }
 
-// ── PAGE EXPORT ──────────────────────────────────────────────────────────────
 export default function FloodAwarenessSections() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">

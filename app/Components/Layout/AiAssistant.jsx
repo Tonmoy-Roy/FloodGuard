@@ -11,9 +11,6 @@ import {
   Sparkles,
 } from "lucide-react";
 
-// ── CONFIG ───────────────────────────────────────────────────────────────────
-// API calls go through /api/chat (server-side) to keep the Gemini key secure
-
 const SUGGESTED_QUESTIONS = [
   "How do I prepare for a flood?",
   "What to do during a flash flood?",
@@ -23,7 +20,6 @@ const SUGGESTED_QUESTIONS = [
   "How to keep children safe during floods?",
 ];
 
-// ── HELPERS ──────────────────────────────────────────────────────────────────
 function TypingDots() {
   return (
     <div className="flex items-center gap-1 px-4 py-3">
@@ -63,7 +59,6 @@ function Message({ msg }) {
   );
 }
 
-// ── MAIN COMPONENT ───────────────────────────────────────────────────────────
 export default function FloodAIAssistant() {
   const [open, setOpen]         = useState(false);
   const [input, setInput]       = useState("");
@@ -151,11 +146,11 @@ export default function FloodAIAssistant() {
   const isEmpty = messages.length === 0;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 ">
 
       {/* ── CHAT WINDOW ── */}
       {open && (
-        <div className="w-[370px] max-h-[560px] flex flex-col rounded-2xl border border-gray-700 bg-gray-950 shadow-2xl shadow-black/60 overflow-hidden animate-in slide-in-from-bottom-4 duration-200">
+        <div className="w-[367px] md:w-[370px] max-h-[560px] flex flex-col rounded-2xl border border-gray-700 bg-gray-950 shadow-2xl shadow-black/60 overflow-hidden animate-in slide-in-from-bottom-4 duration-200 -mr-5 md:mr-0">
 
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-gray-900 border-b border-gray-800">
@@ -276,7 +271,7 @@ export default function FloodAIAssistant() {
         ) : (
           <>
             <Waves className="w-[18px] h-[18px]" />
-            <span className="text-sm font-semibold">AI Help</span>
+            <span className="text-sm font-semibold">Ask Me</span>
             {/* Pulse ring */}
             <span className="absolute -top-1 -right-1 w-3 h-3">
               <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-75" />

@@ -28,20 +28,6 @@ export default function HeroSection() {
           Learn how to stay safe before, during, and after a flood emergency.
         </p>
 
-        {/* CTA buttons */}
-        {/* <div className="flex gap-3 flex-wrap justify-center text-gray-50">
-          <Button asChild>
-            <Link href="#guide">
-              <BookOpen className="w-4 h-4" /> Read the guide
-            </Link>
-          </Button>
-          <Button variant="destructive" asChild>
-            <Link href="/sos">
-              <Shield className="w-4 h-4" /> Emergency SOS
-            </Link>
-          </Button>
-        </div> */}
-
         {/* Before / During / After cards */}
         <div className="grid grid-cols-3 gap-3 w-full mt-4">
           {[

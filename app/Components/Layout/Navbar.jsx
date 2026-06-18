@@ -214,7 +214,6 @@ function UserMenu({ user, language }) {
   );
 }
 
-// ─── Simple hamburger menu (replaces Sheet) ───────────────────────────────────
 function MobileNav({ user, pathname, language, open, onClose }) {
   const t = TRANSLATIONS[language];
   const dashboardHref = DASHBOARD_ROUTE[user.role];
