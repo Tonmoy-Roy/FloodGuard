@@ -70,6 +70,7 @@ export default function FloodAIAssistant() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading]   = useState(false);
   const [unread, setUnread]     = useState(0);
+  const [rateLimitUntil, setRateLimitUntil] = useState(0);
   const bottomRef               = useRef(null);
   const inputRef                = useRef(null);
 
@@ -88,7 +89,19 @@ export default function FloodAIAssistant() {
 
   async function sendMessage(text) {
     const userText = (text || input).trim();
+    const now = Date.now();
     if (!userText || loading) return;
+    if (now < rateLimitUntil) {
+      const waitSeconds = Math.ceil((rateLimitUntil - now) / 1000);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: `Error: Rate limit exceeded. Please wait ${waitSeconds} second${waitSeconds === 1 ? "" : "s"} and try again.`,
+        },
+      ]);
+      return;
+    }
 
     setInput("");
     setMessages((prev) => [...prev, { role: "user", content: userText }]);
@@ -104,6 +117,11 @@ export default function FloodAIAssistant() {
       const data = await res.json();
 
       if (!res.ok || data.error) {
+        if (res.status === 429) {
+          const retryAfterSeconds = data.retryAfter || 60;
+          setRateLimitUntil(Date.now() + retryAfterSeconds * 1000);
+          throw new Error(data.error || `Rate limit exceeded. Try again in ${retryAfterSeconds} seconds.`);
+        }
         throw new Error(data.error || "Server error");
       }
 
@@ -158,6 +176,11 @@ export default function FloodAIAssistant() {
               <ChevronDown className="w-4 h-4" />
             </button>
           </div>
+          {rateLimitUntil > Date.now() && (
+            <div className="px-4 py-2 bg-yellow-500/15 border-t border-yellow-300 text-xs text-yellow-200">
+              Rate limit reached. Please wait {Math.ceil((rateLimitUntil - Date.now()) / 1000)} second(s) before trying again.
+            </div>
+          )}
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 min-h-0 max-h-[360px]">

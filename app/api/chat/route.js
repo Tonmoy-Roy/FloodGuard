@@ -1,9 +1,9 @@
 // app/api/chat/route.js
+import { NextResponse } from "next/server";
 
 export async function GET() {
-  // Debug endpoint - remove after testing
   const key = process.env.GEMINI_API_KEY;
-  return Response.json({
+  return NextResponse.json({
     keyLoaded: !!key,
     keyPreview: key ? `${key.slice(0, 6)}...${key.slice(-4)}` : "NOT FOUND",
   });
@@ -12,14 +12,13 @@ export async function GET() {
 export async function POST(request) {
   try {
     const { messages, userText } = await request.json();
-
     const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-    console.log("Key loaded:", !!GEMINI_API_KEY);
-    console.log("Key preview:", GEMINI_API_KEY ? `${GEMINI_API_KEY.slice(0,6)}...` : "MISSING");
-
     if (!GEMINI_API_KEY) {
-      return Response.json({ error: "API key not configured — check .env.local at root" }, { status: 500 });
+      return NextResponse.json(
+        { error: "API key not configured — check .env.local at root" },
+        { status: 500 }
+      );
     }
 
     const SYSTEM_PROMPT = `You are FloodSafe AI, an assistant specialized in flood preparedness, emergency response, rescue guidance, shelter information, weather awareness, livestock safety, and disaster recovery in Bangladesh.
@@ -30,13 +29,21 @@ If the user asks unrelated questions, politely explain: "I can only assist with 
 
 Keep answers concise, practical, and easy to follow. Use bullet points where helpful. Prioritize life-safety information.`;
 
-    const history = (messages || []).map((m) => ({
+    // Filter out previous error blocks from history
+    const cleanMessages = (messages || []).filter(
+      (m) => m.content && !m.content.startsWith("Error:")
+    );
+
+    const history = cleanMessages.map((m) => ({
       role: m.role === "user" ? "user" : "model",
       parts: [{ text: m.content }],
     }));
 
+    // REST API demands snake_case for system_instruction
     const body = {
-      system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+      system_instruction: { 
+        parts: [{ text: SYSTEM_PROMPT }] 
+      },
       contents: [
         ...history,
         { role: "user", parts: [{ text: userText }] },
@@ -47,44 +54,46 @@ Keep answers concise, practical, and easy to follow. Use bullet points where hel
       },
     };
 
-    const MODEL = "gemini-2.0-flash";
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-
-    console.log("Calling Gemini model:", MODEL);
+    const MODEL = "gemini-2.5-flash";
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`;
 
     const geminiRes = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "x-goog-api-key": GEMINI_API_KEY 
+      },
       body: JSON.stringify(body),
     });
 
-    const data = await geminiRes.json();
-
+    // Catch non-200 responses from Google immediately
     if (!geminiRes.ok) {
-      console.error("Gemini error response:", JSON.stringify(data));
+      const errorData = await geminiRes.json().catch(() => ({}));
+      console.error("Gemini API error detailed:", errorData);
+      
       if (geminiRes.status === 429) {
-        return Response.json(
-          { error: "Too many requests — please wait a moment and try again." },
+        return NextResponse.json(
+          { error: "Rate limit reached. Please wait a moment." },
           { status: 429 }
         );
       }
-      return Response.json(
-        { error: data?.error?.message || "Gemini API error" },
+      return NextResponse.json(
+        { error: errorData?.error?.message || "Gemini API error occurred" },
         { status: geminiRes.status }
       );
     }
 
+    const data = await geminiRes.json();
     const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
     if (!reply) {
-      console.error("Empty Gemini response:", JSON.stringify(data));
-      return Response.json({ error: "No response from Gemini" }, { status: 500 });
+      return NextResponse.json({ error: "Empty reply from AI model" }, { status: 500 });
     }
 
-    return Response.json({ reply });
+    return NextResponse.json({ reply });
 
   } catch (err) {
-    console.error("Chat API error:", err);
-    return Response.json({ error: err.message }, { status: 500 });
+    console.error("Chat API Route Crash:", err);
+    return NextResponse.json({ error: err.message }, { status: 500 });
   }
 }
