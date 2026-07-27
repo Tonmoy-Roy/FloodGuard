@@ -34,12 +34,6 @@ import {
   X,
 } from "lucide-react";
 
-const MOCK_USER = {
-  name: "Admin",
-  email: "admin@floodguard.bd",
-  role: "admin",
-  avatarInitials: "AD",
-};
 
 const TRANSLATIONS = {
   en: {
@@ -92,10 +86,7 @@ const DASHBOARD_ROUTE = {
 };
 
 const ROLE_META = {
-  user: {
-    label: "User",
-    className: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  },
+  
   volunteer: {
     label: "Volunteer",
     className: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
@@ -148,75 +139,12 @@ function WeatherBadge({ language, className = "" }) {
   );
 }
 
-function NotificationBell({ count = 0 }) {
-  return (
-    <Button variant="ghost" size="icon" className="relative">
-      <Bell className="w-5 h-5" />
-      {count > 0 && (
-        <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500 border-2 border-white dark:border-gray-900" />
-      )}
-      <span className="sr-only">{count} notifications</span>
-    </Button>
-  );
+function UserMenu({ language }) {
+  const t = TRANSLATIONS[language];
 }
 
-function UserMenu({ user, language }) {
+function MobileNav({ pathname, language, open, onClose }) {
   const t = TRANSLATIONS[language];
-  const dashboardHref = DASHBOARD_ROUTE[user.role];
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-          <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-xs font-semibold text-blue-700 dark:text-blue-300 border border-gray-200 dark:border-gray-700">
-            {user.avatarInitials}
-          </div>
-          <div className="hidden md:flex flex-col items-start leading-tight">
-            <span className="text-xs font-medium text-gray-900 dark:text-gray-100">
-              {user.name}
-            </span>
-          </div>
-          <ChevronDown className="w-3.5 h-3.5 text-gray-400 hidden md:block" />
-        </button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-52 text-gray-400">
-        <DropdownMenuLabel className="flex flex-col gap-0.5">
-          <span className="font-medium text-sm">{user.name}</span>
-          <span className="font-normal text-xs text-muted-foreground">{user.email}</span>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href={dashboardHref} className="flex items-center gap-2">
-            <LayoutDashboard className="w-4 h-4" />
-            {t.dashboard}
-          </Link>
-        </DropdownMenuItem>
-        {user.role === "admin" && (
-          <DropdownMenuItem asChild>
-            <Link href="/admin/users" className="flex items-center gap-2">
-              <Users className="w-4 h-4" />
-              {t.manageUsers}
-            </Link>
-          </DropdownMenuItem>
-        )}
-        <DropdownMenuItem asChild>
-          <Link href="/settings" className="flex items-center gap-2">
-            <Settings className="w-4 h-4" />
-            {t.settings}
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className="flex gap-2 items-center text-red-600 dark:text-red-400 focus:text-red-600">
-          <LogOut className="w-4 h-4" />
-          {t.signOut}
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
-
-function MobileNav({ user, pathname, language, open, onClose }) {
-  const t = TRANSLATIONS[language];
-  const dashboardHref = DASHBOARD_ROUTE[user.role];
 
   if (!open) return null;
 
@@ -246,18 +174,7 @@ function MobileNav({ user, pathname, language, open, onClose }) {
 
         <>
             {/* User Info */}
-            <div className="px-5 py-4 bg-gray-50/50 dark:bg-gray-800/20 border-b border-gray-100 dark:border-gray-800">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-xs font-bold text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-gray-700">
-                  {user.avatarInitials}
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-sm font-bold text-gray-900 dark:text-gray-100">
-                    {user.name}
-                  </span>
-                </div>
-              </div>
-            </div>
+           
 
             {/* Nav links */}
             <div className="flex-1 overflow-y-auto">
@@ -352,9 +269,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);  // ← single source of truth
 
   const t = TRANSLATIONS[language];
-  const user = MOCK_USER;
   const activeRescues = 3;
-  const dashboardHref = DASHBOARD_ROUTE[user.role];
 
   return (
     <>
@@ -398,23 +313,7 @@ export default function Navbar() {
               <option value="en">EN</option>
               <option value="bn">বাংলা</option>
             </select>
-
-            {/* Volunteer button */}
-            <div className="hidden md:flex md:w-[1vw] md:mr-3">
-              <Button
-                variant="outline"
-                size="sm"
-                className="flex items-center rounded-r-none"
-                asChild
-              >
-              </Button>
-            </div>
-
-            <div className="hidden md:block w-px h-6 bg-gray-300 dark:bg-gray-700" />
-
-            <div className="hidden md:block">
-              <UserMenu user={user} language={language} />
-            </div>
+            
 
             {/* Hamburger button (mobile only) */}
             <button
@@ -430,7 +329,6 @@ export default function Navbar() {
 
       {/* Mobile drawer — rendered outside the header so it can overlay everything */}
       <MobileNav
-        user={user}
         pathname={pathname}
         language={language}
         open={mobileOpen}
