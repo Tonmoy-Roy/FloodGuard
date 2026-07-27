@@ -6,56 +6,37 @@ import {
   Loader2, CheckCircle2, Navigation, Phone, RefreshCw,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import emailjs from "emailjs-com";
 
-// ─── Telegram Config ──────────────────────────────────────────────────────────
-const TELEGRAM_BOT_TOKEN = "YOUR_BOT_TOKEN_HERE";
-const TELEGRAM_CHAT_ID   = "YOUR_CHAT_ID_HERE";
-
-async function sendTelegramAlert({ name, phone, type, emoji, peopleCount, hasChildren, hasElderly, note, location }) {
+const EMAILJS_SERVICE_ID   = "service_hiiv81g";
+const EMAILJS_PUBLIC_KEY   = "dqzfNz7gbv9q-B4mD";
+const EMAILJS_SOS_TEMPLATE = "template_rgd88ve"; 
+async function sendEmailSOS({ name, phone, type, emoji, peopleCount, hasChildren, hasElderly, note, location }) {
   const mapsLink = location
     ? `https://maps.google.com/?q=${location.lat},${location.lng}`
     : "Location not shared";
 
   const vulnerable = [
-    hasChildren ? "👶 Children" : null,
-    hasElderly  ? "👴 Elderly"  : null,
+    hasChildren ? "Children" : null,
+    hasElderly  ? "Elderly"  : null,
   ].filter(Boolean).join(", ") || "None";
 
-  const message = `
-🚨 *SOS ALERT — FloodGuard BD*
-
-*Name:* ${name || "Unknown"}
-*Phone:* ${phone || "Not provided"}
-
-*Emergency:* ${emoji} ${type}
-*People:* 👥 ${peopleCount}
-*Vulnerable:* ${vulnerable}
-
-*📍 Location:*
-${mapsLink}
-
-${note ? `*Note:* ${note}` : ""}
-
-_Sent via FloodGuard BD Emergency Platform_
-  `.trim();
-
-  const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text: message,
-      parse_mode: "Markdown",
-    }),
-  });
-
-  if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.description || "Telegram send failed");
-  }
+  await emailjs.send(
+    EMAILJS_SERVICE_ID,
+    EMAILJS_SOS_TEMPLATE,
+    {
+      name:            name || "Unknown",
+      phone:           phone || "Not provided",
+      emergency_type:  `${emoji} ${type}`,
+      people_count:    peopleCount,
+      vulnerable,
+      location_link:   mapsLink,
+      note:            note || "None",
+    },
+    EMAILJS_PUBLIC_KEY
+  );
 }
 
-// ─── Get fresh GPS (always asks / refreshes) ──────────────────────────────────
 function getFreshLocation() {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
@@ -74,15 +55,14 @@ function getFreshLocation() {
         }
       },
       {
-        enableHighAccuracy: true,  // forces fresh GPS read, not cached
+        enableHighAccuracy: true,  
         timeout: 10000,
-        maximumAge: 0,             // 0 = never use cached location
+        maximumAge: 0,           
       }
     );
   });
 }
 
-// ─── Emergency Types ──────────────────────────────────────────────────────────
 const EMERGENCY_TYPES = [
   { id: "rescue",  label: "Rescue Needed",    emoji: "🛶", color: "border-red-300 bg-red-50 dark:bg-red-900/20 dark:border-red-800 text-red-700 dark:text-red-300" },
   { id: "medical", label: "Medical Emergency", emoji: "🚑", color: "border-orange-300 bg-orange-50 dark:bg-orange-900/20 dark:border-orange-800 text-orange-700 dark:text-orange-300" },
@@ -94,7 +74,6 @@ const EMERGENCY_TYPES = [
 
 const PEOPLE_OPTIONS = ["1", "2", "3–5", "6–10", "10+"];
 
-// ─── Step Dots ────────────────────────────────────────────────────────────────
 function StepDots({ current, total }) {
   return (
     <div className="flex items-center gap-1.5">
@@ -109,7 +88,6 @@ function StepDots({ current, total }) {
   );
 }
 
-// ─── Location Box ─────────────────────────────────────────────────────────────
 function LocationBox({ location, locating, locError, onGetLocation }) {
   return (
     <div className="flex flex-col gap-2">
@@ -172,7 +150,6 @@ function LocationBox({ location, locating, locError, onGetLocation }) {
   );
 }
 
-// ─── SOS Modal ────────────────────────────────────────────────────────────────
 function SOSModal({ onClose }) {
   const [step, setStep]               = useState(0);
   const [selectedType, setType]       = useState(null);
@@ -206,10 +183,20 @@ function SOSModal({ onClose }) {
     setSubmitError("");
     const typeInfo = EMERGENCY_TYPES.find((t) => t.id === selectedType);
     try {
-      await sendTelegramAlert({ name, phone, type: typeInfo?.label, emoji: typeInfo?.emoji, peopleCount, hasChildren, hasElderly, note, location });
+      await sendEmailSOS({
+        name,
+        phone,
+        type:        typeInfo?.label,
+        emoji:       typeInfo?.emoji,
+        peopleCount,
+        hasChildren,
+        hasElderly,
+        note,
+        location,
+      });
       setStep(2);
     } catch (err) {
-      console.error(err);
+      console.error("Email SOS error:", err);
       setSubmitError("Failed to send SOS. Please call 999 or 1090 directly.");
     } finally {
       setSubmitting(false);
@@ -373,7 +360,6 @@ function SOSModal({ onClose }) {
   );
 }
 
-// ─── Floating Button ──────────────────────────────────────────────────────────
 export default function FloatingSosButton() {
   const [open, setOpen] = useState(false);
 
