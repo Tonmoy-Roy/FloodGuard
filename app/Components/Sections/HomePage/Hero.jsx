@@ -17,13 +17,6 @@ import {
   CloudRain,
 } from "lucide-react";
 
-const STATS = [
-  { label: "Active SOS", value: "24", icon: AlertTriangle, color: "text-red-500" },
-  { label: "Shelters Open", value: "38", icon: Building2, color: "text-blue-500" },
-  { label: "Volunteers", value: "312", icon: Users, color: "text-green-500" },
-  { label: "Rescued Today", value: "91", icon: Shield, color: "text-orange-500" },
-];
-
 const HERO_CARDS = [
   {
     id: "sos",
@@ -75,24 +68,6 @@ const HERO_CARDS = [
   },
 ];
 
-function StatsBar() {
-  return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-3xl mx-auto mt-10">
-      {STATS.map(({ label, value, icon: Icon, color }) => (
-        <div
-          key={label}
-          className="flex flex-col items-center gap-1 px-4 py-3 rounded-xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800"
-        >
-          <Icon className={`w-4 h-4 ${color}`} />
-          <span className="text-xl font-bold text-gray-900 dark:text-gray-100">
-            {value}
-          </span>
-          <span className="text-xs text-gray-500 dark:text-gray-400">{label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function HeroCard({ card }) {
   const Icon = card.icon;
@@ -162,17 +137,13 @@ export default function HeroSection() {
           <span className="block text-red-500">When It Matters Most</span>
         </h1>
 
-        <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-xl leading-relaxed">
+        <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-xl leading-relaxed mb-10">
           Real-time flood rescue coordination — connect victims, volunteers, and
           rescue teams instantly across Bangladesh.
         </p>
 
       </div>
-
-      {/* Stats bar */}
-      <div className="relative z-10 w-full max-w-3xl mb-10">
-        <StatsBar />
-      </div>
+      
 
       {/* ── 3 Hero Cards ── */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-5xl mb-20">

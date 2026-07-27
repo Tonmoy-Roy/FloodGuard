@@ -133,14 +133,12 @@ function FeatureCard({ feature }) {
         ))}
       </ul>
 
-      {/* CTA */}
-      <Link
-        href={feature.href}
+      <span
         className={`mt-auto flex items-center gap-1.5 text-sm font-semibold ${feature.ctaColor} transition-colors`}
       >
         {feature.cta}
         <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-      </Link>
+      </span>
     </div>
   );
 }
