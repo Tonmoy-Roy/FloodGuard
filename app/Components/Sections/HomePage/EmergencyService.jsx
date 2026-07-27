@@ -120,16 +120,10 @@ function ServiceCard({ service }) {
 
       {/* CTA link */}
       <Button
-        className={`w-full gap-2 ${service.btnColor} ${service.btnHColor} text-white font-semibold rounded-lg p-2`}
+        className={`w-full gap-2 ${service.btnColor} ${service.btnHColor} text-white font-semibold rounded-lg p-2 flex items-center justify-center`}
       >
-        <Link
-          href={service.href}
-          className={`flex items-center justify-center gap-1.5 text-sm font-semibold text-white ${service.statColor}`}
-        >
-          Request Now
-
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-        </Link>
+        Request Now
+        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
       </Button>
     </div>
   );

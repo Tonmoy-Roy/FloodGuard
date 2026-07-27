@@ -126,9 +126,9 @@ function HeroCard({ card }) {
         className={`w-full gap-2 font-semibold p-2 rounded-lg ${card.ctaClass}`}
         asChild
       >
-        <Link href={card.href} className="flex justify-center items-center">
+        <span className="flex justify-center items-center">
           {card.cta}
-        </Link>
+        </span>
       </Button>
     </div>
   );
@@ -167,32 +167,6 @@ export default function HeroSection() {
           rescue teams instantly across Bangladesh.
         </p>
 
-        {/* Secondary quick links */}
-        <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
-          <Link
-            href="/map"
-            className="flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:underline underline-offset-2"
-          >
-            <MapPin className="w-4 h-4" />
-            View Live Map
-          </Link>
-          <span className="text-gray-300 dark:text-gray-700">·</span>
-          <Link
-            href="/missing"
-            className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:underline underline-offset-2"
-          >
-            <Users className="w-4 h-4" />
-            Missing Persons
-          </Link>
-          <span className="text-gray-300 dark:text-gray-700">·</span>
-          <Link
-            href="/resources"
-            className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:underline underline-offset-2"
-          >
-            <AlertTriangle className="w-4 h-4" />
-            Request Resources
-          </Link>
-        </div>
       </div>
 
       {/* Stats bar */}
@@ -206,7 +180,7 @@ export default function HeroSection() {
           <HeroCard key={card.id} card={card} />
         ))}
       </div>
-      
+
       <LiveMap></LiveMap>
       <EmergencyServicesSection></EmergencyServicesSection>
       <VolunteerSection></VolunteerSection>

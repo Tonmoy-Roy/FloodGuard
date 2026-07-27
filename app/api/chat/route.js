@@ -22,11 +22,11 @@ export async function POST(request) {
 
     const SYSTEM_PROMPT = `You are FloodSafe AI, an assistant specialized in flood preparedness, emergency response, rescue guidance, shelter information, weather awareness, livestock safety, and disaster recovery in Bangladesh.
 
-Only answer questions related to floods, disasters, weather safety, emergency preparedness, shelters, rescue operations, and public safety.
+    Only answer questions related to floods, disasters, weather safety, emergency preparedness, shelters, rescue operations, and public safety.
 
-If the user asks unrelated questions, politely explain: "I can only assist with flood safety, emergency preparedness, rescue guidance, and disaster-related topics."
+    If the user asks unrelated questions, politely explain: "I can only assist with flood safety, emergency preparedness, rescue guidance, and disaster-related topics."
 
-Keep answers concise, practical, and easy to follow. Use bullet points where helpful. Prioritize life-safety information.`;
+    Keep answers concise, practical, and easy to follow. Use decimal number where helpful. Prioritize life-safety information.`;
 
     // Filter out previous error blocks from history
     const cleanMessages = (messages || []).filter(
@@ -40,8 +40,8 @@ Keep answers concise, practical, and easy to follow. Use bullet points where hel
 
     // REST API demands snake_case for system_instruction
     const body = {
-      system_instruction: { 
-        parts: [{ text: SYSTEM_PROMPT }] 
+      system_instruction: {
+        parts: [{ text: SYSTEM_PROMPT }]
       },
       contents: [
         ...history,
@@ -58,9 +58,9 @@ Keep answers concise, practical, and easy to follow. Use bullet points where hel
 
     const geminiRes = await fetch(url, {
       method: "POST",
-      headers: { 
+      headers: {
         "Content-Type": "application/json",
-        "x-goog-api-key": GEMINI_API_KEY 
+        "x-goog-api-key": GEMINI_API_KEY
       },
       body: JSON.stringify(body),
     });
@@ -69,7 +69,7 @@ Keep answers concise, practical, and easy to follow. Use bullet points where hel
     if (!geminiRes.ok) {
       const errorData = await geminiRes.json().catch(() => ({}));
       console.error("Gemini API error detailed:", errorData);
-      
+
       if (geminiRes.status === 429) {
         return NextResponse.json(
           { error: "Rate limit reached. Please wait a moment." },
