@@ -43,7 +43,11 @@ function Message({ msg }) {
       {/* Avatar */}
       {!isUser && (
         <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center shrink-0 mt-0.5">
-          <Waves className="w-3.5 h-3.5 text-white" />
+          <Image
+            src={robot}
+            className="w-8 h-8"
+            alt=""
+          />
         </div>
       )}
 
@@ -156,10 +160,6 @@ export default function FloodAIAssistant() {
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-gray-900 border-b border-gray-800">
             <div className="flex items-center gap-2.5">
-              <div className="relative w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center">
-                <Waves className="w-4 h-4 text-white" />
-                <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-green-400 border-2 border-gray-900" />
-              </div>
               <div>
                 <p className="text-sm font-semibold text-white leading-none">FloodSafe AI</p>
                 <p className="text-[10px] text-green-400 mt-0.5">Online · Flood Safety Expert</p>
@@ -186,7 +186,7 @@ export default function FloodAIAssistant() {
                 <div className="flex flex-col items-center text-center gap-2 pt-2 pb-1">
                   <div className="w-12 h-12 rounded-2xl bg-blue-600/20 border border-blue-600/30 flex items-center justify-center">
                     <Image
-                      src={aicon}
+                      src={robot}
                       className="w-20 h-15"
                       alt=""
                     />
@@ -222,8 +222,8 @@ export default function FloodAIAssistant() {
               <div className="flex gap-2.5">
                 <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
                   <Image
-                    src={aicon}
-                    className="w-15 h-15"
+                    src={robot}
+                    className="w-8 h-8"
                     alt=""
                   />
                 </div>
