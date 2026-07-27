@@ -1,5 +1,6 @@
 "use client";
-
+import aicon from '../../../public/Images/flood.png'
+import robot from '../../../public/Images/robot.png'
 import { useState, useRef, useEffect } from "react";
 import {
   X,
@@ -10,6 +11,7 @@ import {
   ChevronDown,
   Sparkles,
 } from "lucide-react";
+import Image from "next/image";
 
 const SUGGESTED_QUESTIONS = [
   "How do I prepare for a flood?",
@@ -47,11 +49,10 @@ function Message({ msg }) {
 
       {/* Bubble */}
       <div
-        className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
-          isUser
-            ? "bg-blue-600 text-white rounded-tr-sm"
-            : "bg-gray-800 text-gray-200 rounded-tl-sm border border-gray-700"
-        }`}
+        className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${isUser
+          ? "bg-blue-600 text-white rounded-tr-sm"
+          : "bg-gray-800 text-gray-200 rounded-tl-sm border border-gray-700"
+          }`}
       >
         {msg.content}
       </div>
@@ -60,14 +61,14 @@ function Message({ msg }) {
 }
 
 export default function FloodAIAssistant() {
-  const [open, setOpen]         = useState(false);
-  const [input, setInput]       = useState("");
+  const [open, setOpen] = useState(false);
+  const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading]   = useState(false);
-  const [unread, setUnread]     = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [unread, setUnread] = useState(0);
   const [rateLimitUntil, setRateLimitUntil] = useState(0);
-  const bottomRef               = useRef(null);
-  const inputRef                = useRef(null);
+  const bottomRef = useRef(null);
+  const inputRef = useRef(null);
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -184,7 +185,11 @@ export default function FloodAIAssistant() {
               <div className="flex flex-col gap-4">
                 <div className="flex flex-col items-center text-center gap-2 pt-2 pb-1">
                   <div className="w-12 h-12 rounded-2xl bg-blue-600/20 border border-blue-600/30 flex items-center justify-center">
-                    <Waves className="w-6 h-6 text-blue-400" />
+                    <Image
+                      src={aicon}
+                      className="w-20 h-15"
+                      alt=""
+                    />
                   </div>
                   <p className="text-sm font-semibold text-white">Hi, I'm FloodSafe AI 👋</p>
                   <p className="text-xs text-gray-400 max-w-[260px] leading-relaxed">
@@ -216,7 +221,11 @@ export default function FloodAIAssistant() {
             {loading && (
               <div className="flex gap-2.5">
                 <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
-                  <Waves className="w-3.5 h-3.5 text-white" />
+                  <Image
+                    src={aicon}
+                    className="w-15 h-15"
+                    alt=""
+                  />
                 </div>
                 <div className="bg-gray-800 border border-gray-700 rounded-2xl rounded-tl-sm">
                   <TypingDots />
@@ -270,7 +279,11 @@ export default function FloodAIAssistant() {
           </>
         ) : (
           <>
-            <Waves className="w-[18px] h-[18px]" />
+            <Image
+              src={robot}
+              className="w-8 h-8"
+              alt=""
+            />
             <span className="text-sm font-semibold">Ask Me</span>
             {/* Pulse ring */}
             <span className="absolute -top-1 -right-1 w-3 h-3">
