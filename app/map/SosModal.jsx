@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Shield, X, MapPin, Users, ChevronDown,
   Loader2, CheckCircle2, Navigation, Phone, RefreshCw,
@@ -360,8 +360,14 @@ function SOSModal({ onClose }) {
   );
 }
 
-export default function FloatingSosButton() {
-  const [open, setOpen] = useState(false);
+export default function FloatingSosButton({ autoOpen = false }) {
+  const [open, setOpen] = useState(autoOpen);
+
+  useEffect(() => {
+    if (autoOpen) {
+      setOpen(true);
+    }
+  }, [autoOpen]);
 
   return (
     <>

@@ -36,7 +36,7 @@ const HERO_CARDS = [
   },
   {
     id: "shelter",
-    href: "/shelters",
+    href: "/map",
     icon: Building2,
     badge: "Safe Zone",
     badgeClass: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
@@ -52,7 +52,7 @@ const HERO_CARDS = [
   },
   {
     id: "volunteer",
-    href: "/volunteer/register",
+    href: "/volunteer/apply",
     icon: HeartHandshake,
     badge: "Join Us",
     badgeClass: "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300",
@@ -71,6 +71,7 @@ const HERO_CARDS = [
 
 function HeroCard({ card }) {
   const Icon = card.icon;
+  const isSosCard = card.id === "sos";
 
   return (
     <div
@@ -97,14 +98,19 @@ function HeroCard({ card }) {
       </div>
 
       {/* CTA */}
-      <Button
-        className={`w-full gap-2 font-semibold p-2 rounded-lg ${card.ctaClass}`}
-        asChild
-      >
-        <span className="flex justify-center items-center">
-          {card.cta}
-        </span>
-      </Button>
+      {isSosCard ? (
+        <Button className={`w-full gap-2 font-semibold p-2 rounded-lg ${card.ctaClass}`} asChild>
+          <Link href="/map?openSos=true" className="flex justify-center items-center">
+            {card.cta}
+          </Link>
+        </Button>
+      ) : (
+        <Button className={`w-full gap-2 font-semibold p-2 rounded-lg ${card.ctaClass}`} asChild>
+          <Link href={card.href} className="flex justify-center items-center">
+            {card.cta}
+          </Link>
+        </Button>
+      )}
     </div>
   );
 }
