@@ -36,15 +36,22 @@ const STATUS_CONFIG = {
 };
 
 export default function VolunteerStatusPage() {
-  const [loading, setLoading]     = useState(true);
-  const [application, setApp]     = useState(null);
-  const [error, setError]         = useState("");
+  const [loading, setLoading] = useState(true);
+  const [application, setApp] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     async function fetchStatus() {
       try {
-        // TODO: pass real user email/uid from Firebase auth
-        const res  = await fetch(`/api/volunteer?email=${MOCK_EMAIL}`);
+        // localStorage থেকে email নাও
+        const email = localStorage.getItem("volunteer_email");
+
+        if (!email) {
+          setLoading(false);
+          return; // email না থাকলে "No application found" দেখাবে
+        }
+
+        const res = await fetch(`/api/volunteer?email=${email}`);
         const json = await res.json();
         if (json.data?.length > 0) {
           setApp(json.data[0]);
@@ -76,7 +83,7 @@ export default function VolunteerStatusPage() {
   );
 
   const config = STATUS_CONFIG[application.status] || STATUS_CONFIG.Pending;
-  const Icon   = config.icon;
+  const Icon = config.icon;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center px-4 py-12">
@@ -107,11 +114,11 @@ export default function VolunteerStatusPage() {
           </p>
           <div className="grid grid-cols-2 gap-3">
             {[
-              ["Name",         application.name],
-              ["District",     application.district],
+              ["Name", application.name],
+              ["District", application.district],
               ["Availability", application.availability],
-              ["Submitted",    new Date(application.createdAt).toLocaleDateString("en-BD")],
-              ["Skills",       (application.skills || []).slice(0, 2).join(", ")],
+              ["Submitted", new Date(application.createdAt).toLocaleDateString("en-BD")],
+              ["Skills", (application.skills || []).slice(0, 2).join(", ")],
             ].map(([label, val]) => (
               <div key={label} className="flex flex-col gap-0.5">
                 <span className="text-[10px] text-gray-400 uppercase tracking-wider">{label}</span>

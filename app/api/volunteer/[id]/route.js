@@ -21,7 +21,7 @@ async function getDb() {
 // PATCH /api/volunteer/[id] — approve or reject
 export async function PATCH(req, { params }) {
   try {
-    const { id }   = params;
+    const { id }   = await params;
     const { status, rejectionReason } = await req.json();
 
     if (!["Approved", "Rejected"].includes(status)) {
@@ -49,8 +49,9 @@ export async function PATCH(req, { params }) {
 // DELETE /api/volunteer/[id]
 export async function DELETE(req, { params }) {
   try {
+    const { id } = await params; 
     const db  = await getDb();
-    await db.collection("volunteers").deleteOne({ _id: new ObjectId(params.id) });
+    await db.collection("volunteers").deleteOne({ _id: new ObjectId(id) });
     return NextResponse.json({ success: true });
   } catch (err) {
     return NextResponse.json({ error: err.message }, { status: 500 });

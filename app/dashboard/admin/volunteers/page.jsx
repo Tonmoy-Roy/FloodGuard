@@ -135,6 +135,44 @@ function DetailModal({ volunteer, onClose, onApprove, onReject }) {
               </p>
             </div>
           )}
+          {/* Photo */}
+          {volunteer.photo && (
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Photo</span>
+              <img
+                src={volunteer.photo}
+                alt={volunteer.name}
+                className="w-20 h-20 rounded-full object-cover border-2 border-gray-200 dark:border-gray-700"
+              />
+            </div>
+          )}
+
+          {/* NID / Document */}
+          {volunteer.nid && (
+            <div className="flex flex-col gap-2">
+              <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
+                NID / Document
+              </span>
+              {volunteer.nid.includes(".pdf") ? (
+                // PDF — open in new tab
+
+                <a href={volunteer.nid}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  📄 View PDF Document ↗
+                </a>
+              ) : (
+                // Image — show inline
+                <img
+                  src={volunteer.nid}
+                  alt="NID Document"
+                  className="w-full max-w-xs rounded-xl border border-gray-200 dark:border-gray-700 object-cover"
+                />
+              )}
+            </div>
+          )}
 
           {/* Reject reason input */}
           {rejecting && (
@@ -184,7 +222,7 @@ function DetailModal({ volunteer, onClose, onApprove, onReject }) {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 }
 
@@ -493,6 +531,7 @@ export default function AdminVolunteersPage() {
           onReject={handleReject}
         />
       )}
+
     </div>
   );
 }

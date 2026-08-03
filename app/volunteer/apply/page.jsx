@@ -41,11 +41,10 @@ function StepBar({ current }) {
       {steps.map((label, i) => (
         <div key={label} className="flex items-center gap-2 flex-1">
           <div className={`flex items-center gap-2 ${i <= current ? "text-blue-600" : "text-gray-400"}`}>
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-colors ${
-              i < current  ? "bg-blue-600 border-blue-600 text-white"
-              : i === current ? "border-blue-600 text-blue-600"
-              : "border-gray-300 text-gray-400"
-            }`}>
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-colors ${i < current ? "bg-blue-600 border-blue-600 text-white"
+                : i === current ? "border-blue-600 text-blue-600"
+                  : "border-gray-300 text-gray-400"
+              }`}>
               {i < current ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
             </div>
             <span className="hidden sm:block text-xs font-medium">{label}</span>
@@ -117,17 +116,17 @@ export default function VolunteerApplyPage() {
   function validate(stepNum) {
     const e = {};
     if (stepNum === 0) {
-      if (!form.name.trim())     e.name     = "Name is required";
-      if (!form.email.trim())    e.email    = "Email is required";
-      if (!form.phone.trim())    e.phone    = "Phone is required";
-      if (!form.age)             e.age      = "Age is required";
-      if (!form.gender)          e.gender   = "Gender is required";
-      if (!form.district)        e.district = "District is required";
-      if (!form.address.trim())  e.address  = "Address is required";
+      if (!form.name.trim()) e.name = "Name is required";
+      if (!form.email.trim()) e.email = "Email is required";
+      if (!form.phone.trim()) e.phone = "Phone is required";
+      if (!form.age) e.age = "Age is required";
+      if (!form.gender) e.gender = "Gender is required";
+      if (!form.district) e.district = "District is required";
+      if (!form.address.trim()) e.address = "Address is required";
     }
     if (stepNum === 1) {
-      if (form.skills.length === 0) e.skills       = "Select at least one skill";
-      if (!form.availability)       e.availability = "Availability is required";
+      if (form.skills.length === 0) e.skills = "Select at least one skill";
+      if (!form.availability) e.availability = "Availability is required";
     }
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -155,6 +154,7 @@ export default function VolunteerApplyPage() {
       });
 
       if (!res.ok) throw new Error("Failed");
+      localStorage.setItem("volunteer_email", form.email);
       setSubmitted(true);
     } catch (err) {
       console.error(err);
@@ -273,11 +273,10 @@ export default function VolunteerApplyPage() {
                 <div className="flex flex-wrap gap-2 mt-1">
                   {SKILLS_OPTIONS.map(skill => (
                     <button key={skill} type="button" onClick={() => toggleSkill(skill)}
-                      className={`px-3 py-1.5 rounded-full border text-xs font-medium transition-all ${
-                        form.skills.includes(skill)
+                      className={`px-3 py-1.5 rounded-full border text-xs font-medium transition-all ${form.skills.includes(skill)
                           ? "bg-blue-600 text-white border-blue-600"
                           : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-400 hover:text-blue-600"
-                      }`}>
+                        }`}>
                       {skill}
                     </button>
                   ))}
@@ -294,11 +293,10 @@ export default function VolunteerApplyPage() {
                 <div className="flex flex-wrap gap-2 mt-1">
                   {AVAILABILITY_OPTIONS.map(opt => (
                     <button key={opt} type="button" onClick={() => update("availability", opt)}
-                      className={`px-3.5 py-1.5 rounded-lg border text-sm font-medium transition-all ${
-                        form.availability === opt
+                      className={`px-3.5 py-1.5 rounded-lg border text-sm font-medium transition-all ${form.availability === opt
                           ? "bg-green-600 text-white border-green-600"
                           : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-green-400"
-                      }`}>
+                        }`}>
                       {opt}
                     </button>
                   ))}
