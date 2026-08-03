@@ -122,13 +122,7 @@ export default function HeroSection() {
       {/* Top alert banner */}
       <div className="relative z-10 mb-8 flex items-center gap-2 px-4 py-2 rounded-full border border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-900/20 text-sm text-orange-700 dark:text-orange-300 font-medium">
         <CloudRain className="w-4 h-4 animate-bounce" />
-        Flood alert active in Dhaka, Sylhet & Chattogram divisions
-        <Link
-          href="/alerts"
-          className="underline underline-offset-2 text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-200"
-        >
-          View alerts
-        </Link>
+        Stay Informed. Stay Prepared.
       </div>
 
       {/* Headline */}
@@ -149,7 +143,7 @@ export default function HeroSection() {
         </p>
 
       </div>
-      
+
 
       {/* ── 3 Hero Cards ── */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-5xl mb-20">

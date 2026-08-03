@@ -6,10 +6,10 @@ import {
   User, Mail, Phone, MapPin, Briefcase,
   Heart, Clock, Shield, Upload, ChevronRight,
   CheckCircle2, Loader2, AlertCircle,
+  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/app/Components/Ui/button";
 
-// ─── Bangladesh Districts ─────────────────────────────────────────────────────
 const DISTRICTS = [
   "Dhaka", "Chittagong", "Sylhet", "Rajshahi", "Khulna",
   "Barisal", "Rangpur", "Mymensingh", "Feni", "Noakhali",
@@ -33,7 +33,6 @@ const AVAILABILITY_OPTIONS = [
   "Full Time", "Part Time", "Weekends Only", "Evenings Only", "On Call",
 ];
 
-// ─── Step indicator ───────────────────────────────────────────────────────────
 function StepBar({ current }) {
   const steps = ["Personal Info", "Skills & Experience", "Documents"];
   return (
@@ -42,8 +41,8 @@ function StepBar({ current }) {
         <div key={label} className="flex items-center gap-2 flex-1">
           <div className={`flex items-center gap-2 ${i <= current ? "text-blue-600" : "text-gray-400"}`}>
             <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-colors ${i < current ? "bg-blue-600 border-blue-600 text-white"
-                : i === current ? "border-blue-600 text-blue-600"
-                  : "border-gray-300 text-gray-400"
+              : i === current ? "border-blue-600 text-blue-600"
+                : "border-gray-300 text-gray-400"
               }`}>
               {i < current ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
             </div>
@@ -58,7 +57,6 @@ function StepBar({ current }) {
   );
 }
 
-// ─── Field wrapper ────────────────────────────────────────────────────────────
 function Field({ label, required, icon: Icon, error, children }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -79,7 +77,6 @@ function Field({ label, required, icon: Icon, error, children }) {
 const inputClass = "w-full px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition";
 const selectClass = inputClass + " cursor-pointer";
 
-// ─── Main Form ────────────────────────────────────────────────────────────────
 export default function VolunteerApplyPage() {
   const router = useRouter();
   const [step, setStep] = useState(0);
@@ -88,13 +85,10 @@ export default function VolunteerApplyPage() {
   const [errors, setErrors] = useState({});
 
   const [form, setForm] = useState({
-    // Step 0 — Personal
     name: "", email: "", phone: "", age: "", gender: "",
     district: "", upazila: "", address: "", occupation: "",
     emergencyContact: "",
-    // Step 1 — Skills
     skills: [], experience: "", availability: "",
-    // Step 2 — Documents
     photo: null, nid: null,
   });
 
@@ -112,12 +106,10 @@ export default function VolunteerApplyPage() {
     }));
   }
 
-  // ── Validation ──
   function validate(stepNum) {
     const e = {};
     if (stepNum === 0) {
       if (!form.name.trim()) e.name = "Name is required";
-      if (!form.email.trim()) e.email = "Email is required";
       if (!form.phone.trim()) e.phone = "Phone is required";
       if (!form.age) e.age = "Age is required";
       if (!form.gender) e.gender = "Gender is required";
@@ -139,7 +131,6 @@ export default function VolunteerApplyPage() {
   async function handleSubmit() {
     setSubmitting(true);
     try {
-      // Build form data (supports file upload)
       const data = new FormData();
       Object.entries(form).forEach(([key, val]) => {
         if (key === "skills") data.append("skills", JSON.stringify(val));
@@ -164,7 +155,6 @@ export default function VolunteerApplyPage() {
     }
   }
 
-  // ── Success screen ──
   if (submitted) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50 dark:bg-gray-950">
@@ -218,19 +208,19 @@ export default function VolunteerApplyPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <Field label="Full Name" required icon={User} error={errors.name}>
                   <input type="text" value={form.name} onChange={e => update("name", e.target.value)}
-                    placeholder="Robin Ahmed" className={inputClass} />
+                    placeholder="Your Name" className={inputClass} />
                 </Field>
-                <Field label="Email" required icon={Mail} error={errors.email}>
+                <Field label="Email" icon={Mail} error={errors.email}>
                   <input type="email" value={form.email} onChange={e => update("email", e.target.value)}
-                    placeholder="robin@gmail.com" className={inputClass} />
+                    placeholder="Your Email" className={inputClass} />
                 </Field>
                 <Field label="Phone" required icon={Phone} error={errors.phone}>
                   <input type="tel" value={form.phone} onChange={e => update("phone", e.target.value)}
-                    placeholder="017xxxxxxxx" className={inputClass} />
+                    placeholder="Your phone" className={inputClass} />
                 </Field>
                 <Field label="Age" required error={errors.age}>
                   <input type="number" value={form.age} onChange={e => update("age", e.target.value)}
-                    placeholder="24" min="18" max="60" className={inputClass} />
+                    placeholder="Your Age" min="18" max="60" className={inputClass} />
                 </Field>
                 <Field label="Gender" required error={errors.gender}>
                   <select value={form.gender} onChange={e => update("gender", e.target.value)} className={selectClass}>
@@ -274,8 +264,8 @@ export default function VolunteerApplyPage() {
                   {SKILLS_OPTIONS.map(skill => (
                     <button key={skill} type="button" onClick={() => toggleSkill(skill)}
                       className={`px-3 py-1.5 rounded-full border text-xs font-medium transition-all ${form.skills.includes(skill)
-                          ? "bg-blue-600 text-white border-blue-600"
-                          : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-400 hover:text-blue-600"
+                        ? "bg-blue-600 text-white border-blue-600"
+                        : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-blue-400 hover:text-blue-600"
                         }`}>
                       {skill}
                     </button>
@@ -294,8 +284,8 @@ export default function VolunteerApplyPage() {
                   {AVAILABILITY_OPTIONS.map(opt => (
                     <button key={opt} type="button" onClick={() => update("availability", opt)}
                       className={`px-3.5 py-1.5 rounded-lg border text-sm font-medium transition-all ${form.availability === opt
-                          ? "bg-green-600 text-white border-green-600"
-                          : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-green-400"
+                        ? "bg-green-600 text-white border-green-600"
+                        : "border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:border-green-400"
                         }`}>
                       {opt}
                     </button>
@@ -308,7 +298,7 @@ export default function VolunteerApplyPage() {
           {/* ── Step 2: Documents ── */}
           {step === 2 && (
             <div className="flex flex-col gap-6">
-              <Field label="Profile Photo" icon={Upload}>
+              <Field label="Profile Photo" icon={Upload} required>
                 <div className="flex items-center gap-4">
                   {form.photo && (
                     <img src={URL.createObjectURL(form.photo)} alt="preview"
@@ -316,19 +306,27 @@ export default function VolunteerApplyPage() {
                   )}
                   <label className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 hover:border-blue-400 hover:text-blue-500 cursor-pointer transition-all">
                     <Upload className="w-4 h-4" />
-                    {form.photo ? form.photo.name : "Upload photo (JPG/PNG)"}
-                    <input type="file" accept="image/*" className="hidden"
-                      onChange={e => update("photo", e.target.files[0])} />
+                    {form.photo ? form.photo.name : "Upload photo (JPG/PNG/JPEG)"}
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/jpg,image/png"
+                      className="hidden"
+                      onChange={e => update("photo", e.target.files[0])}
+                    />
                   </label>
                 </div>
               </Field>
 
-              <Field label="National ID / Birth Certificate" icon={Shield}>
+              <Field label="National ID / Birth Certificate" icon={Shield} required>
                 <label className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 hover:border-blue-400 hover:text-blue-500 cursor-pointer transition-all">
                   <Upload className="w-4 h-4" />
-                  {form.nid ? form.nid.name : "Upload NID / Birth Certificate"}
-                  <input type="file" accept="image/*,.pdf" className="hidden"
-                    onChange={e => update("nid", e.target.files[0])} />
+                  {form.nid ? form.nid.name : "Upload NID / Birth Certificate (JPG/PNG/JPEG)"}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/jpg,image/png"
+                    className="hidden"
+                    onChange={e => update("nid", e.target.files[0])}
+                  />
                 </label>
               </Field>
 
@@ -366,12 +364,12 @@ export default function VolunteerApplyPage() {
 
             {step < 2 ? (
               <Button onClick={handleNext}
-                className="gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6">
-                Next <ChevronRight className="w-4 h-4" />
+                className="gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold p-2 rounded-lg group flex justify-center items-center">
+                Next <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
             ) : (
               <Button onClick={handleSubmit} disabled={submitting}
-                className="gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-6">
+                className="gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold p-2 rounded-lg group flex justify-center items-center">
                 {submitting
                   ? <><Loader2 className="w-4 h-4 animate-spin" /> Submitting...</>
                   : <><CheckCircle2 className="w-4 h-4" /> Submit Application</>}

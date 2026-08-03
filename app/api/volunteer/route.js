@@ -1,4 +1,3 @@
-// app/api/volunteer/route.js
 import { NextResponse } from "next/server";
 import { MongoClient } from "mongodb";
 import { v2 as cloudinary } from "cloudinary";
@@ -33,7 +32,7 @@ async function uploadToCloudinary(file, folder, resourceType = "auto") {
       {
         folder,
         resource_type: resourceType,
-        access_mode: "public",  // ← public করো
+        access_mode: "public",  
       },
       (error, result) => {
         if (error) reject(error);
@@ -43,7 +42,6 @@ async function uploadToCloudinary(file, folder, resourceType = "auto") {
   });
 }
 
-// POST /api/volunteer — save new application
 export async function POST(req) {
   try {
     const formData = await req.formData();
@@ -59,12 +57,10 @@ export async function POST(req) {
     let nidUrl = null;
     const nidFile = formData.get("nid");
     if (nidFile && nidFile.size > 0) {
-      // সব file ই image হিসেবে upload করো
-      // PDF হলেও Cloudinary image convert করবে
       nidUrl = await uploadToCloudinary(
         nidFile,
         "floodguard/volunteers/nids",
-        "auto"  // ← "raw" বা "image" না, শুধু "auto"
+        "image" 
       );
     }
 
@@ -101,7 +97,6 @@ export async function POST(req) {
   }
 }
 
-// GET /api/volunteer
 export async function GET(req) {
   try {
     const { searchParams } = new URL(req.url);
@@ -120,7 +115,6 @@ export async function GET(req) {
       .sort({ createdAt: -1 })
       .toArray();
 
-    // Convert _id to string
     const data = volunteers.map(v => ({
       ...v,
       _id: v._id.toString(),

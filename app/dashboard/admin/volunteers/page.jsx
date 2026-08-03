@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import {
   CheckCircle2, XCircle, Eye, Trash2, Search,
@@ -9,17 +8,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/app/Components/Ui/button";
 
-// ─── Mock data — replace with real API fetch ──────────────────────────────────
-const MOCK_VOLUNTEERS = [
-  { _id: "1", name: "Robin Ahmed", email: "robin@gmail.com", phone: "01712345678", district: "Feni", upazila: "Fulgazi", skills: ["First Aid", "Swimming"], availability: "Full Time", status: "Pending", createdAt: "2024-06-20T10:00:00Z", experience: "Worked in 2022 Feni flood relief." },
-  { _id: "2", name: "Sadia Islam", email: "sadia@gmail.com", phone: "01898765432", district: "Sylhet", upazila: "Sadar", skills: ["Medical Training", "Cooking"], availability: "Weekends", status: "Pending", createdAt: "2024-06-21T08:30:00Z", experience: "Nurse with 3 years experience." },
-  { _id: "3", name: "Mahfuz Karim", email: "mahfuz@gmail.com", phone: "01611223344", district: "Noakhali", upazila: "Companiganj", skills: ["Boat Operation", "Driving"], availability: "On Call", status: "Approved", createdAt: "2024-06-18T14:00:00Z", experience: "Owns a rescue boat.", approvedAt: "2024-06-19T09:00:00Z" },
-  { _id: "4", name: "Tania Begum", email: "tania@gmail.com", phone: "01955544433", district: "Feni", upazila: "Daganbhuiyan", skills: ["First Aid", "Communication"], availability: "Part Time", status: "Rejected", createdAt: "2024-06-17T11:00:00Z", experience: "Community organizer." },
-  { _id: "5", name: "Rakib Hossain", email: "rakib@gmail.com", phone: "01733221100", district: "Feni", upazila: "Parshuram", skills: ["Search & Rescue", "Swimming"], availability: "Full Time", status: "Pending", createdAt: "2024-06-22T07:15:00Z", experience: "Ex-army, trained in rescue ops." },
-];
-
-// ─── Config ───────────────────────────────────────────────────────────────────
-
 const STATUS_CONFIG = {
   Pending: { label: "Pending", color: "text-orange-600", bg: "bg-orange-50 dark:bg-orange-900/20", border: "border-orange-200", icon: Clock },
   Approved: { label: "Approved", color: "text-green-600", bg: "bg-green-50 dark:bg-green-900/20", border: "border-green-200", icon: BadgeCheck },
@@ -28,7 +16,6 @@ const STATUS_CONFIG = {
 
 const DISTRICTS = ["All Districts", "Feni", "Sylhet", "Noakhali", "Dhaka", "Chittagong"];
 
-// ─── Stat Card ────────────────────────────────────────────────────────────────
 function StatCard({ label, value, icon: Icon, color }) {
   return (
     <div className="flex flex-col gap-2 p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800">
@@ -41,7 +28,6 @@ function StatCard({ label, value, icon: Icon, color }) {
   );
 }
 
-// ─── Detail Modal ─────────────────────────────────────────────────────────────
 function DetailModal({ volunteer, onClose, onApprove, onReject }) {
   const [rejecting, setRejecting] = useState(false);
   const [reason, setReason] = useState("");
@@ -154,7 +140,6 @@ function DetailModal({ volunteer, onClose, onApprove, onReject }) {
                 NID / Document
               </span>
               {volunteer.nid.includes(".pdf") ? (
-                // PDF — open in new tab
 
                 <a href={volunteer.nid}
                   target="_blank"
@@ -164,7 +149,6 @@ function DetailModal({ volunteer, onClose, onApprove, onReject }) {
                   📄 View PDF Document ↗
                 </a>
               ) : (
-                // Image — show inline
                 <img
                   src={volunteer.nid}
                   alt="NID Document"
@@ -226,7 +210,6 @@ function DetailModal({ volunteer, onClose, onApprove, onReject }) {
   );
 }
 
-// ─── Main Page ────────────────────────────────────────────────────────────────
 export default function AdminVolunteersPage() {
   const [volunteers, setVolunteers] = useState([]);
   const [loading, setLoading] = useState(true);

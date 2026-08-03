@@ -132,17 +132,7 @@ export default function VolunteerSection() {
                   <span className="text-sm text-gray-600 dark:text-gray-300">{item}</span>
                 </div>
               ))}
-            </div>
-
-            {/* CTA buttons */}
-            <div className="flex flex-wrap items-center gap-3">
-              <CTAButton></CTAButton>
-              <Button variant="outline" className="gap-2" asChild>
-                <Link href="/volunteer/how-it-works">
-                  Learn More
-                </Link>
-              </Button>
-            </div>
+            </div>            
           </div>
 
           {/* Right — benefit cards */}

@@ -5,9 +5,6 @@ import { CheckCircle2, Clock, XCircle, Loader2, ChevronRight } from "lucide-reac
 import { Button } from "@/app/Components/Ui/button";
 import Link from "next/link";
 
-// TODO: replace with real user email from Firebase auth
-const MOCK_EMAIL = "robin@gmail.com";
-
 const STATUS_CONFIG = {
   Pending: {
     icon: Clock,
@@ -43,12 +40,11 @@ export default function VolunteerStatusPage() {
   useEffect(() => {
     async function fetchStatus() {
       try {
-        // localStorage থেকে email নাও
         const email = localStorage.getItem("volunteer_email");
 
         if (!email) {
           setLoading(false);
-          return; // email না থাকলে "No application found" দেখাবে
+          return; 
         }
 
         const res = await fetch(`/api/volunteer?email=${email}`);

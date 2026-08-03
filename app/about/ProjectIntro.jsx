@@ -7,7 +7,7 @@ const REASONS = [
     icon: AlertTriangle,
     title: "Frequent & Severe Flooding",
     description:
-      "Feni district experiences some of Bangladesh's most destructive annual floods. Thousands of families lose their homes, livelihoods, and access to basic needs within hours.",
+      "Many regions across Bangladesh experience devastating floods every year. Thousands of families lose their homes, livelihoods, and access to essential services within hours, creating an urgent need for timely rescue, relief, and coordinated emergency response.",
     color: "text-red-500",
     bg: "bg-red-50 dark:bg-red-900/20",
   },
@@ -90,11 +90,8 @@ export default function AboutIntroSection() {
               Why This Project Was Built
             </h2>
             <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-2xl">
-              Feni district frequently faces severe flood situations that displace
-              thousands of people within hours. Existing emergency channels are
-              slow, fragmented, and inaccessible during active disasters. This
-              platform was built to change that — by creating a fast, simple, and
-              coordinated response system anyone can use from a phone.
+              Many regions frequently face severe flood situations that displace thousands of people within hours. Existing emergency channels are often slow, fragmented, and difficult to access during active disasters. This platform was built to change that by providing a fast, simple, and coordinated emergency response system that anyone can use from a phone.
+
             </p>
           </div>
 

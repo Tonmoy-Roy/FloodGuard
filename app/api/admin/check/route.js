@@ -1,5 +1,3 @@
-// app/api/admin/check/route.js
-
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 

@@ -1,4 +1,3 @@
-// app/admin/login/page.jsx
 "use client";
 
 import { useState } from "react";

@@ -8,13 +8,12 @@ import Image from "next/image";
 
 
 import {
-  Info, CloudRain, BookOpen,
+  Info, BookOpen,
   Home, Map, Menu, X, HeartHandshake,
-  LayoutDashboard, Users, Settings, LogOut,
+  LayoutDashboard, Users, LogOut,
   Shield, ChevronDown,
 } from "lucide-react";
 
-// ─── Translations ─────────────────────────────────────────────────────────────
 const TRANSLATIONS = {
   en: {
     home: "Home", liveMap: "Live Map", about: "About Us",
@@ -42,7 +41,6 @@ const NAV_LINKS = [
   { href: "/about", key: "about", icon: Info },
 ];
 
-// Admin dropdown menu items
 const ADMIN_MENU = [
   { href: "/dashboard/admin/volunteers", label: "Volunteer Requests", icon: Users },
   { href: "/dashboard/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -55,7 +53,6 @@ const ROLE_META = {
   rescue_team: { label: "Rescue Team", className: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200" },
 };
 
-// ─── Logo ─────────────────────────────────────────────────────────────────────
 function Logo({ language }) {
   const t = TRANSLATIONS[language];
   return (
@@ -76,7 +73,6 @@ function Logo({ language }) {
   );
 }
 
-// ─── Weather Badge ────────────────────────────────────────────────────────────
 function WeatherBadge({ language, className = "" }) {
   const t = TRANSLATIONS[language];
   const [mounted, setMounted] = useState(false);
@@ -85,8 +81,6 @@ function WeatherBadge({ language, className = "" }) {
 
   return (
     <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border border-red-600 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-sm text-gray-600 dark:text-gray-300 ${className}`}>
-      <CloudRain className="w-4 h-4 text-amber-500" />
-      <span>Feni</span>
       <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300">
         ⚠ {t.floodRisk}
       </span>
@@ -94,14 +88,12 @@ function WeatherBadge({ language, className = "" }) {
   );
 }
 
-// ─── Admin Dropdown — only visible to admin role ──────────────────────────────
 function AdminDropdown({ language, onSignOut }) {
   const t = TRANSLATIONS[language];
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const router = useRouter();
 
-  // Close on outside click
   useEffect(() => {
     function handleClick(e) {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false);
@@ -179,7 +171,6 @@ function AdminDropdown({ language, onSignOut }) {
   );
 }
 
-// ─── Mobile Drawer ────────────────────────────────────────────────────────────
 function MobileNav({ pathname, language, role, open, onClose, onSignOut }) {
   const t = TRANSLATIONS[language];
   const router = useRouter();
@@ -233,7 +224,6 @@ function MobileNav({ pathname, language, role, open, onClose, onSignOut }) {
               ))}
             </div>
 
-            {/* Admin section — mobile, only for admin */}
             {role === "admin" && (
               <div className="space-y-1">
                 <h4 className="px-3 text-[10px] font-bold text-red-400 uppercase tracking-widest mb-2 flex items-center gap-1.5">
@@ -270,7 +260,6 @@ function MobileNav({ pathname, language, role, open, onClose, onSignOut }) {
   );
 }
 
-// ─── Main Navbar ──────────────────────────────────────────────────────────────
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
@@ -289,7 +278,6 @@ export default function Navbar() {
     try {
       await fetch("/api/admin/logout", { method: "POST" });
     } catch {
-      // Ignore logout API issues and clear the cookie locally so the UI updates immediately.
     }
 
     document.cookie = "admin_session=; Max-Age=0; path=/";

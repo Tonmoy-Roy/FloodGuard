@@ -1,4 +1,3 @@
-// app/api/volunteer/[id]/route.js
 import { NextResponse } from "next/server";
 import { MongoClient, ObjectId } from "mongodb";
 
@@ -18,7 +17,6 @@ async function getDb() {
   return client.db(dbName);
 }
 
-// PATCH /api/volunteer/[id] — approve or reject
 export async function PATCH(req, { params }) {
   try {
     const { id }   = await params;
@@ -46,7 +44,6 @@ export async function PATCH(req, { params }) {
   }
 }
 
-// DELETE /api/volunteer/[id]
 export async function DELETE(req, { params }) {
   try {
     const { id } = await params; 
