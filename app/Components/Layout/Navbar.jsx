@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import favicon from '../../../public/Images/favicon.ico';
 import Image from "next/image";
 
+
 import {
   Info, CloudRain, BookOpen,
   Home, Map, Menu, X, HeartHandshake,
@@ -34,36 +35,25 @@ const TRANSLATIONS = {
 };
 
 const NAV_LINKS = [
-  { href: "/",               key: "home",      icon: Home          },
-  { href: "/map",            key: "liveMap",   icon: Map           },
-  { href: "/volunteer/apply",key: "volunteer", icon: HeartHandshake},
-  { href: "/awareness",      key: "awareness", icon: BookOpen      },
-  { href: "/about",          key: "about",     icon: Info          },
+  { href: "/", key: "home", icon: Home },
+  { href: "/map", key: "liveMap", icon: Map },
+  { href: "/volunteer/apply", key: "volunteer", icon: HeartHandshake },
+  { href: "/awareness", key: "awareness", icon: BookOpen },
+  { href: "/about", key: "about", icon: Info },
 ];
 
 // Admin dropdown menu items
 const ADMIN_MENU = [
-  { href: "/dashboard/admin/volunteers", label: "Volunteer Requests", icon: Users         },
-  { href: "/dashboard/admin",            label: "Dashboard",          icon: LayoutDashboard},
+  { href: "/dashboard/admin/volunteers", label: "Volunteer Requests", icon: Users },
+  { href: "/dashboard/admin", label: "Dashboard", icon: LayoutDashboard },
 ];
 
 const ROLE_META = {
-  user:        { label: "User",        className: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"   },
-  volunteer:   { label: "Volunteer",   className: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"},
-  admin:       { label: "Admin",       className: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300"       },
-  rescue_team: { label: "Rescue Team", className: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200"},
+  user: { label: "User", className: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200" },
+  volunteer: { label: "Volunteer", className: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" },
+  admin: { label: "Admin", className: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300" },
+  rescue_team: { label: "Rescue Team", className: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200" },
 };
-
-// ─── TODO: Replace this with real Firebase auth ───────────────────────────────
-// Example:
-//   import { useAuth } from "@/context/AuthContext";
-//   const { user } = useAuth();
-//   const role = user?.role ?? "user";
-//
-// For now, change MOCK_ROLE to test different roles:
-//   "user"     → no admin button
-//   "admin"    → admin dropdown appears
-const MOCK_ROLE = "admin"; // ← change to "user" to hide admin button
 
 // ─── Logo ─────────────────────────────────────────────────────────────────────
 function Logo({ language }) {
@@ -105,11 +95,11 @@ function WeatherBadge({ language, className = "" }) {
 }
 
 // ─── Admin Dropdown — only visible to admin role ──────────────────────────────
-function AdminDropdown({ language }) {
-  const t       = TRANSLATIONS[language];
+function AdminDropdown({ language, onSignOut }) {
+  const t = TRANSLATIONS[language];
   const [open, setOpen] = useState(false);
-  const ref     = useRef(null);
-  const router  = useRouter();
+  const ref = useRef(null);
+  const router = useRouter();
 
   // Close on outside click
   useEffect(() => {
@@ -125,12 +115,10 @@ function AdminDropdown({ language }) {
     router.push(href);
   }
 
-  function handleSignOut() {
-    // TODO: call Firebase signOut()
-    // await signOut(auth);
-    // router.push("/login");
-    console.log("sign out");
+  async function handleSignOut() {
     setOpen(false);
+    await onSignOut?.();
+    router.push("/admin/login");
   }
 
   return (
@@ -192,8 +180,8 @@ function AdminDropdown({ language }) {
 }
 
 // ─── Mobile Drawer ────────────────────────────────────────────────────────────
-function MobileNav({ pathname, language, role, open, onClose }) {
-  const t      = TRANSLATIONS[language];
+function MobileNav({ pathname, language, role, open, onClose, onSignOut }) {
+  const t = TRANSLATIONS[language];
   const router = useRouter();
 
   useEffect(() => {
@@ -211,15 +199,13 @@ function MobileNav({ pathname, language, role, open, onClose }) {
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 ${
-          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
       />
 
       {/* Drawer */}
-      <div className={`fixed top-0 left-0 z-50 h-full w-80 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden shadow-xl transition-transform duration-300 ease-in-out ${
-        open ? "translate-x-0" : "-translate-x-full"
-      }`}>
+      <div className={`fixed top-0 left-0 z-50 h-full w-80 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden shadow-xl transition-transform duration-300 ease-in-out ${open ? "translate-x-0" : "-translate-x-full"
+        }`}>
 
         {/* Header */}
         <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-gray-800">
@@ -237,11 +223,10 @@ function MobileNav({ pathname, language, role, open, onClose }) {
               <h4 className="px-3 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Menu</h4>
               {NAV_LINKS.map(({ href, key, icon: Icon }) => (
                 <button key={href} onClick={() => handleNavClick(href)}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all w-full text-left ${
-                    pathname === href
-                      ? "bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-bold"
-                      : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600"
-                  }`}>
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all w-full text-left ${pathname === href
+                    ? "bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 font-bold"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-blue-600"
+                    }`}>
                   <Icon className="w-5 h-5" />
                   {t[key]}
                 </button>
@@ -273,7 +258,7 @@ function MobileNav({ pathname, language, role, open, onClose }) {
         {/* Footer */}
         <div className="p-5 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900">
           <button
-            onClick={() => { onClose(); console.log("sign out"); }}
+            onClick={() => { onClose(); onSignOut?.(); }}
             className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
           >
             <LogOut className="w-5 h-5" />
@@ -287,14 +272,30 @@ function MobileNav({ pathname, language, role, open, onClose }) {
 
 // ─── Main Navbar ──────────────────────────────────────────────────────────────
 export default function Navbar() {
-  const pathname   = usePathname();
+  const pathname = usePathname();
+  const router = useRouter();
   const [language, setLanguage] = useState("en");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [role, setRole] = useState("user");
 
-  // TODO: replace MOCK_ROLE with real auth
-  // const { user } = useAuth();
-  // const role = user?.role ?? "user";
-  const role = MOCK_ROLE;
+  useEffect(() => {
+    fetch("/api/admin/check")
+      .then(res => res.json())
+      .then(data => setRole(data.isAdmin ? "admin" : "user"))
+      .catch(() => setRole("user"));
+  }, []);
+
+  const handleAdminSignOut = async () => {
+    try {
+      await fetch("/api/admin/logout", { method: "POST" });
+    } catch {
+      // Ignore logout API issues and clear the cookie locally so the UI updates immediately.
+    }
+
+    document.cookie = "admin_session=; Max-Age=0; path=/";
+    setRole("user");
+    router.push("/admin/login");
+  };
 
   const t = TRANSLATIONS[language];
 
@@ -312,11 +313,10 @@ export default function Navbar() {
           <nav className="hidden md:flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
             {NAV_LINKS.map(({ href, key, icon: Icon }) => (
               <Link key={href} href={href}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                  pathname === href
-                    ? "text-blue-600 dark:text-blue-400 font-semibold"
-                    : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                }`}>
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${pathname === href
+                  ? "text-blue-600 dark:text-blue-400 font-semibold"
+                  : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                  }`}>
                 <Icon className="w-4 h-4" />
                 {t[key]}
               </Link>
@@ -341,7 +341,7 @@ export default function Navbar() {
             {/* Admin dropdown — desktop, admin only */}
             {role === "admin" && (
               <div className="hidden md:block">
-                <AdminDropdown language={language} />
+                <AdminDropdown language={language} onSignOut={handleAdminSignOut} />
               </div>
             )}
 
@@ -363,6 +363,7 @@ export default function Navbar() {
         role={role}
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
+        onSignOut={handleAdminSignOut}
       />
     </>
   );

@@ -72,8 +72,8 @@ export async function GET(req) {
     const col = db.collection("volunteers");
     const volunteers = await col.find(filter).sort({ createdAt: -1 }).toArray();
 
-    return NextResponse.json({ success: true, data: volunteers });
+    return NextResponse.json({ success: true, data: Array.isArray(volunteers) ? volunteers : [] });
   } catch (err) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+    return NextResponse.json({ success: false, error: err.message, data: [] }, { status: 500 });
   }
 }

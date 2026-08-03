@@ -11,19 +11,19 @@ import { Button } from "@/app/Components/Ui/button";
 
 // ─── Mock data — replace with real API fetch ──────────────────────────────────
 const MOCK_VOLUNTEERS = [
-  { _id: "1", name: "Robin Ahmed",   email: "robin@gmail.com",   phone: "01712345678", district: "Feni",     upazila: "Fulgazi",      skills: ["First Aid", "Swimming"],        availability: "Full Time",   status: "Pending",  createdAt: "2024-06-20T10:00:00Z", experience: "Worked in 2022 Feni flood relief." },
-  { _id: "2", name: "Sadia Islam",   email: "sadia@gmail.com",   phone: "01898765432", district: "Sylhet",   upazila: "Sadar",        skills: ["Medical Training", "Cooking"],  availability: "Weekends",    status: "Pending",  createdAt: "2024-06-21T08:30:00Z", experience: "Nurse with 3 years experience." },
-  { _id: "3", name: "Mahfuz Karim",  email: "mahfuz@gmail.com",  phone: "01611223344", district: "Noakhali", upazila: "Companiganj",  skills: ["Boat Operation", "Driving"],    availability: "On Call",     status: "Approved", createdAt: "2024-06-18T14:00:00Z", experience: "Owns a rescue boat.", approvedAt: "2024-06-19T09:00:00Z" },
-  { _id: "4", name: "Tania Begum",   email: "tania@gmail.com",   phone: "01955544433", district: "Feni",     upazila: "Daganbhuiyan", skills: ["First Aid", "Communication"],   availability: "Part Time",   status: "Rejected", createdAt: "2024-06-17T11:00:00Z", experience: "Community organizer." },
-  { _id: "5", name: "Rakib Hossain", email: "rakib@gmail.com",   phone: "01733221100", district: "Feni",     upazila: "Parshuram",    skills: ["Search & Rescue", "Swimming"],  availability: "Full Time",   status: "Pending",  createdAt: "2024-06-22T07:15:00Z", experience: "Ex-army, trained in rescue ops." },
+  { _id: "1", name: "Robin Ahmed", email: "robin@gmail.com", phone: "01712345678", district: "Feni", upazila: "Fulgazi", skills: ["First Aid", "Swimming"], availability: "Full Time", status: "Pending", createdAt: "2024-06-20T10:00:00Z", experience: "Worked in 2022 Feni flood relief." },
+  { _id: "2", name: "Sadia Islam", email: "sadia@gmail.com", phone: "01898765432", district: "Sylhet", upazila: "Sadar", skills: ["Medical Training", "Cooking"], availability: "Weekends", status: "Pending", createdAt: "2024-06-21T08:30:00Z", experience: "Nurse with 3 years experience." },
+  { _id: "3", name: "Mahfuz Karim", email: "mahfuz@gmail.com", phone: "01611223344", district: "Noakhali", upazila: "Companiganj", skills: ["Boat Operation", "Driving"], availability: "On Call", status: "Approved", createdAt: "2024-06-18T14:00:00Z", experience: "Owns a rescue boat.", approvedAt: "2024-06-19T09:00:00Z" },
+  { _id: "4", name: "Tania Begum", email: "tania@gmail.com", phone: "01955544433", district: "Feni", upazila: "Daganbhuiyan", skills: ["First Aid", "Communication"], availability: "Part Time", status: "Rejected", createdAt: "2024-06-17T11:00:00Z", experience: "Community organizer." },
+  { _id: "5", name: "Rakib Hossain", email: "rakib@gmail.com", phone: "01733221100", district: "Feni", upazila: "Parshuram", skills: ["Search & Rescue", "Swimming"], availability: "Full Time", status: "Pending", createdAt: "2024-06-22T07:15:00Z", experience: "Ex-army, trained in rescue ops." },
 ];
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
 const STATUS_CONFIG = {
-  Pending:  { label: "Pending",  color: "text-orange-600", bg: "bg-orange-50 dark:bg-orange-900/20",  border: "border-orange-200", icon: Clock       },
-  Approved: { label: "Approved", color: "text-green-600",  bg: "bg-green-50 dark:bg-green-900/20",    border: "border-green-200",  icon: BadgeCheck   },
-  Rejected: { label: "Rejected", color: "text-red-600",    bg: "bg-red-50 dark:bg-red-900/20",        border: "border-red-200",    icon: XCircle      },
+  Pending: { label: "Pending", color: "text-orange-600", bg: "bg-orange-50 dark:bg-orange-900/20", border: "border-orange-200", icon: Clock },
+  Approved: { label: "Approved", color: "text-green-600", bg: "bg-green-50 dark:bg-green-900/20", border: "border-green-200", icon: BadgeCheck },
+  Rejected: { label: "Rejected", color: "text-red-600", bg: "bg-red-50 dark:bg-red-900/20", border: "border-red-200", icon: XCircle },
 };
 
 const DISTRICTS = ["All Districts", "Feni", "Sylhet", "Noakhali", "Dhaka", "Chittagong"];
@@ -43,9 +43,9 @@ function StatCard({ label, value, icon: Icon, color }) {
 
 // ─── Detail Modal ─────────────────────────────────────────────────────────────
 function DetailModal({ volunteer, onClose, onApprove, onReject }) {
-  const [rejecting, setRejecting]     = useState(false);
-  const [reason, setReason]           = useState("");
-  const [processing, setProcessing]   = useState(false);
+  const [rejecting, setRejecting] = useState(false);
+  const [reason, setReason] = useState("");
+  const [processing, setProcessing] = useState(false);
 
   async function handleApprove() {
     setProcessing(true);
@@ -95,14 +95,14 @@ function DetailModal({ volunteer, onClose, onApprove, onReject }) {
           {/* Info grid */}
           <div className="grid grid-cols-2 gap-4">
             {[
-              { label: "Full Name",    value: volunteer.name,         icon: Users   },
-              { label: "Phone",        value: volunteer.phone,        icon: Phone   },
-              { label: "Email",        value: volunteer.email,        icon: null    },
-              { label: "District",     value: volunteer.district,     icon: MapPin  },
-              { label: "Upazila",      value: volunteer.upazila,      icon: MapPin  },
-              { label: "Occupation",   value: volunteer.occupation || "—", icon: Briefcase },
+              { label: "Full Name", value: volunteer.name, icon: Users },
+              { label: "Phone", value: volunteer.phone, icon: Phone },
+              { label: "Email", value: volunteer.email, icon: null },
+              { label: "District", value: volunteer.district, icon: MapPin },
+              { label: "Upazila", value: volunteer.upazila, icon: MapPin },
+              { label: "Occupation", value: volunteer.occupation || "—", icon: Briefcase },
               { label: "Availability", value: volunteer.availability, icon: Calendar },
-              { label: "Applied",      value: new Date(volunteer.createdAt).toLocaleDateString("en-BD"), icon: Calendar },
+              { label: "Applied", value: new Date(volunteer.createdAt).toLocaleDateString("en-BD"), icon: Calendar },
             ].map(({ label, value, icon: Icon }) => (
               <div key={label} className="flex flex-col gap-0.5">
                 <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">{label}</span>
@@ -190,24 +190,32 @@ function DetailModal({ volunteer, onClose, onApprove, onReject }) {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function AdminVolunteersPage() {
-  const [volunteers, setVolunteers]   = useState([]);
-  const [loading, setLoading]         = useState(true);
-  const [search, setSearch]           = useState("");
-  const [statusFilter, setStatus]     = useState("All");
+  const [volunteers, setVolunteers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatus] = useState("All");
   const [districtFilter, setDistrict] = useState("All Districts");
-  const [selected, setSelected]       = useState(null);
-  const [deleting, setDeleting]       = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [deleting, setDeleting] = useState(null);
 
   // Fetch
   async function fetchVolunteers() {
     setLoading(true);
+    setError("");
     try {
-      // TODO: use real API
-      // const res  = await fetch("/api/volunteer");
-      // const json = await res.json();
-      // setVolunteers(json.data);
-      await new Promise(r => setTimeout(r, 600)); // simulate
-      setVolunteers(MOCK_VOLUNTEERS);
+      const res = await fetch("/api/volunteer");
+      const json = await res.json();
+      const safeVolunteers = Array.isArray(json?.data) ? json.data : [];
+      setVolunteers(safeVolunteers);
+
+      if (!res.ok || !json?.success) {
+        setError(json?.error || "Unable to load volunteer requests right now.");
+      }
+    } catch (err) {
+      console.error("Failed to fetch volunteers:", err);
+      setError("Unable to load volunteer requests right now.");
+      setVolunteers([]);
     } finally {
       setLoading(false);
     }
@@ -248,20 +256,26 @@ export default function AdminVolunteersPage() {
   }
 
   // Filter
-  const filtered = volunteers.filter(v => {
-    const matchSearch   = v.name.toLowerCase().includes(search.toLowerCase()) ||
-                          v.district.toLowerCase().includes(search.toLowerCase()) ||
-                          v.email.toLowerCase().includes(search.toLowerCase());
-    const matchStatus   = statusFilter === "All" || v.status === statusFilter;
-    const matchDistrict = districtFilter === "All Districts" || v.district === districtFilter;
+  const volunteersList = Array.isArray(volunteers) ? volunteers : [];
+  const filtered = volunteersList.filter(v => {
+    const name = typeof v?.name === "string" ? v.name : "";
+    const district = typeof v?.district === "string" ? v.district : "";
+    const email = typeof v?.email === "string" ? v.email : "";
+    const status = typeof v?.status === "string" ? v.status : "";
+
+    const matchSearch = name.toLowerCase().includes(search.toLowerCase()) ||
+      district.toLowerCase().includes(search.toLowerCase()) ||
+      email.toLowerCase().includes(search.toLowerCase());
+    const matchStatus = statusFilter === "All" || status === statusFilter;
+    const matchDistrict = districtFilter === "All Districts" || district === districtFilter;
     return matchSearch && matchStatus && matchDistrict;
   });
 
   // Stats
-  const total    = volunteers.length;
-  const pending  = volunteers.filter(v => v.status === "Pending").length;
-  const approved = volunteers.filter(v => v.status === "Approved").length;
-  const rejected = volunteers.filter(v => v.status === "Rejected").length;
+  const total = volunteersList.length;
+  const pending = volunteersList.filter(v => v?.status === "Pending").length;
+  const approved = volunteersList.filter(v => v?.status === "Approved").length;
+  const rejected = volunteersList.filter(v => v?.status === "Rejected").length;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 p-4 md:p-8">
@@ -279,12 +293,18 @@ export default function AdminVolunteersPage() {
           </button>
         </div>
 
+        {error && (
+          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-800 dark:bg-red-900/20 dark:text-red-400">
+            {error}
+          </div>
+        )}
+
         {/* ── Stats ── */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <StatCard label="Total"    value={total}    icon={Users}      color="text-blue-500"   />
-          <StatCard label="Pending"  value={pending}  icon={Clock}      color="text-orange-500" />
-          <StatCard label="Approved" value={approved} icon={BadgeCheck} color="text-green-500"  />
-          <StatCard label="Rejected" value={rejected} icon={XCircle}    color="text-red-500"    />
+          <StatCard label="Total" value={total} icon={Users} color="text-blue-500" />
+          <StatCard label="Pending" value={pending} icon={Clock} color="text-orange-500" />
+          <StatCard label="Approved" value={approved} icon={BadgeCheck} color="text-green-500" />
+          <StatCard label="Rejected" value={rejected} icon={XCircle} color="text-red-500" />
         </div>
 
         {/* ── Filters ── */}
@@ -350,7 +370,7 @@ export default function AdminVolunteersPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-50 dark:divide-gray-800">
                   {filtered.map(v => {
-                    const cfg  = STATUS_CONFIG[v.status];
+                    const cfg = STATUS_CONFIG[v.status];
                     const Icon = cfg.icon;
                     return (
                       <tr key={v._id} className="hover:bg-gray-50 dark:hover:bg-gray-800/40 transition-colors">
@@ -457,7 +477,7 @@ export default function AdminVolunteersPage() {
           {/* Table footer */}
           {!loading && filtered.length > 0 && (
             <div className="px-5 py-3.5 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between text-xs text-gray-400">
-              <span>Showing {filtered.length} of {volunteers.length} volunteers</span>
+              <span>Showing {filtered.length} of {volunteersList.length} volunteers</span>
               <span>{pending} pending review</span>
             </div>
           )}
