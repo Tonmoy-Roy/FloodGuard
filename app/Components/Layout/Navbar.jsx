@@ -239,9 +239,7 @@ function MobileNav({ pathname, language, role, open, onClose, onSignOut }) {
               </div>
             )}
 
-            <div className="px-3">
-              <WeatherBadge language={language} className="w-full justify-center py-3" />
-            </div>
+            
           </div>
         </div>
 

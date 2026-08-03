@@ -116,9 +116,15 @@ export default function VolunteerApplyPage() {
       if (!form.district) e.district = "District is required";
       if (!form.address.trim()) e.address = "Address is required";
     }
+
     if (stepNum === 1) {
       if (form.skills.length === 0) e.skills = "Select at least one skill";
       if (!form.availability) e.availability = "Availability is required";
+    }
+
+    if (stepNum === 2) {
+      if (!form.photo) e.photo = "Profile photo is required";
+      if (!form.nid) e.nid = "NID / Birth Certificate is required";
     }
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -129,6 +135,7 @@ export default function VolunteerApplyPage() {
   }
 
   async function handleSubmit() {
+    if (!validate(2)) return;
     setSubmitting(true);
     try {
       const data = new FormData();
@@ -298,7 +305,7 @@ export default function VolunteerApplyPage() {
           {/* ── Step 2: Documents ── */}
           {step === 2 && (
             <div className="flex flex-col gap-6">
-              <Field label="Profile Photo" icon={Upload} required>
+              <Field label="Profile Photo" icon={Upload} required error={errors.photo}>
                 <div className="flex items-center gap-4">
                   {form.photo && (
                     <img src={URL.createObjectURL(form.photo)} alt="preview"
@@ -317,7 +324,7 @@ export default function VolunteerApplyPage() {
                 </div>
               </Field>
 
-              <Field label="National ID / Birth Certificate" icon={Shield} required>
+              <Field label="National ID / Birth Certificate" icon={Shield} required error={errors.nid}>
                 <label className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-700 text-sm text-gray-500 dark:text-gray-400 hover:border-blue-400 hover:text-blue-500 cursor-pointer transition-all">
                   <Upload className="w-4 h-4" />
                   {form.nid ? form.nid.name : "Upload NID / Birth Certificate (JPG/PNG/JPEG)"}
