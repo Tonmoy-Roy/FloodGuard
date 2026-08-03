@@ -239,19 +239,25 @@ function MobileNav({ pathname, language, role, open, onClose, onSignOut }) {
               </div>
             )}
 
-            
+
           </div>
         </div>
 
         {/* Footer */}
         <div className="p-5 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900">
-          <button
-            onClick={() => { onClose(); onSignOut?.(); }}
-            className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
-          >
-            <LogOut className="w-5 h-5" />
-            {t.signOut}
-          </button>
+          {role === "admin" ? (
+            <button
+              onClick={() => { onClose(); onSignOut?.(); }}
+              className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
+            >
+              <LogOut className="w-5 h-5" />
+              {t.signOut}
+            </button>
+          ) : (
+            <p className="text-xs text-center text-gray-400 dark:text-gray-600">
+              FloodGuard BD · Emergency Platform
+            </p>
+          )}
         </div>
       </div>
     </>
