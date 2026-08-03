@@ -6,6 +6,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactCompiler: true,
+  images: {
+    domains: ["res.cloudinary.com"],
+  },
   turbopack: {
     root: __dirname,
   },
